@@ -1061,6 +1061,7 @@ footer {
     <div class="tab active" onclick="mudarTab('visao-geral', this)">Visão Geral</div>
     <div class="tab" onclick="mudarTab('verificacao', this)">Verificação de Selos</div>
     <div class="tab" onclick="mudarTab('monitor', this)">Monitor Automático</div>
+    <div class="tab" onclick="mudarTab('whatsapp', this)">📲 Alertas WhatsApp</div>
     <div class="tab" onclick="mudarTab('faq', this)">Perguntas Frequentes</div>
   </div>
 
@@ -1117,7 +1118,7 @@ footer {
         <div>
           <div class="walk-title">Interprete o resultado</div>
           <div class="walk-desc">
-            <strong style="color:var(--accent2)">✓ Verde</strong> — Selo válido e autêntico.<br>
+            <strong style="color:var(--accent2)">✓ Verde</strong> — Selos Verificados.<br>
             <strong style="color:var(--warn)">⚠ Amarelo</strong> — Período diferente do esperado.<br>
             <strong style="color:var(--danger)">✗ Vermelho</strong> — Selo não encontrado ou inválido.
           </div>
@@ -1170,6 +1171,163 @@ footer {
           <div class="walk-desc">Os dados do período detectado (valor, período, banco, agência) serão exibidos automaticamente na tela de resultado para sua revisão.</div>
         </div>
       </div>
+    </div>
+  </div>
+
+  <div id="tab-whatsapp" class="tab-content">
+    <div class="walkthrough">
+
+      <!-- Banner intro -->
+      <div style="background:linear-gradient(135deg,rgba(37,211,102,0.12),rgba(37,211,102,0.04));border:1px solid rgba(37,211,102,0.3);border-radius:10px;padding:18px 22px;display:flex;align-items:flex-start;gap:14px;margin-bottom:8px;">
+        <span style="font-size:1.8rem;flex-shrink:0;">📲</span>
+        <div>
+          <div style="font-family:var(--mono);font-size:0.9rem;font-weight:700;color:#25d366;margin-bottom:4px;">CallMeBot — Alertas no WhatsApp em Tempo Real</div>
+          <div style="font-size:0.85rem;color:var(--muted2);line-height:1.6;">
+            O sistema usa o serviço <strong style="color:var(--text);">CallMeBot</strong> para enviar alertas direto no seu WhatsApp quando um novo período de restituição for detectado.
+            A ativação é gratuita e leva menos de 2 minutos — basta seguir os passos abaixo.
+          </div>
+        </div>
+      </div>
+
+      <!-- Passo 1 -->
+      <div class="walk-item">
+        <div class="walk-bullet" style="background:rgba(37,211,102,0.15);color:#25d366;border:1px solid rgba(37,211,102,0.3);">1</div>
+        <div>
+          <div class="walk-title">Adicione o número do CallMeBot nos seus contatos</div>
+          <div class="walk-desc">
+            Antes de enviar qualquer mensagem, salve o número abaixo na sua agenda com o nome <strong>"CallMeBot"</strong> (ou qualquer nome que preferir). Isso é necessário para o WhatsApp permitir a conversa.
+          </div>
+          <div class="code-block" style="margin-top:10px;">
+            <span class="code-text" style="color:#25d366;">+34 684 73 40 44</span>
+            <button class="copy-btn" onclick="navigator.clipboard.writeText('+34684734044')">Copiar</button>
+          </div>
+          <div style="font-size:0.8rem;color:var(--muted);margin-top:8px;">
+            Este é o número oficial do CallMeBot para a API do WhatsApp.
+          </div>
+        </div>
+      </div>
+
+      <!-- Passo 2 -->
+      <div class="walk-item">
+        <div class="walk-bullet" style="background:rgba(37,211,102,0.15);color:#25d366;border:1px solid rgba(37,211,102,0.3);">2</div>
+        <div>
+          <div class="walk-title">Envie a mensagem de ativação para o CallMeBot</div>
+          <div class="walk-desc">
+            Abra o WhatsApp, inicie uma conversa com o contato <strong>CallMeBot</strong> que você acabou de salvar e envie <strong>exatamente</strong> a mensagem abaixo (em inglês, como está):
+          </div>
+          <div class="code-block" style="margin-top:10px;">
+            <span class="code-text" style="color:#25d366;">I allow callmebot to send me messages</span>
+            <button class="copy-btn" onclick="navigator.clipboard.writeText('I allow callmebot to send me messages')">Copiar</button>
+          </div>
+          <!-- Simulação de chat WhatsApp -->
+          <div style="background:#0b1014;border:1px solid #1a2a1a;border-radius:10px;padding:16px 18px;margin-top:14px;font-size:0.82rem;">
+            <div style="font-family:var(--mono);font-size:0.68rem;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;">Simulação da conversa</div>
+            <!-- Mensagem do usuário -->
+            <div style="display:flex;justify-content:flex-end;margin-bottom:10px;">
+              <div style="background:#005c4b;color:#e9edef;padding:8px 12px;border-radius:10px 10px 2px 10px;max-width:85%;line-height:1.5;">
+                I allow callmebot to send me messages
+                <div style="font-size:0.68rem;color:rgba(255,255,255,0.45);text-align:right;margin-top:4px;">✓✓</div>
+              </div>
+            </div>
+            <!-- Resposta do bot -->
+            <div style="display:flex;justify-content:flex-start;">
+              <div style="background:#1f2c34;color:#e9edef;padding:8px 12px;border-radius:10px 10px 10px 2px;max-width:85%;line-height:1.6;">
+                <span style="color:#25d366;font-weight:700;">CallMeBot</span><br>
+                API Activated for your phone number.<br>
+                Your APIKEY is <span style="color:#f59e0b;font-family:var(--mono);font-weight:700;">123456</span><br>
+                <span style="font-size:0.75rem;color:rgba(255,255,255,0.4);">Thanks for using the service</span>
+                <div style="font-size:0.68rem;color:rgba(255,255,255,0.35);text-align:right;margin-top:4px;">agora</div>
+              </div>
+            </div>
+          </div>
+          <div class="step-tip" style="margin-top:12px;">
+            O bot pode demorar alguns minutos para responder na primeira vez. Se não responder em 5 minutos, tente enviar a mensagem novamente."Talvez ele esteja sobrecarregado e irá te enviar um novo número do CallMeBot para você utilizar!"
+          </div>
+        </div>
+      </div>
+
+      <!-- Passo 3 -->
+      <div class="walk-item">
+        <div class="walk-bullet" style="background:rgba(37,211,102,0.15);color:#25d366;border:1px solid rgba(37,211,102,0.3);">3</div>
+        <div>
+          <div class="walk-title">Copie o seu APIKEY (Token)</div>
+          <div class="walk-desc">
+            O CallMeBot irá responder com uma mensagem contendo o seu <strong>APIKEY</strong> — esse é o seu token pessoal. Copie apenas os números, como no exemplo:
+          </div>
+          <div class="code-block" style="margin-top:10px;">
+            <span class="code-text" style="color:var(--warn);font-family:var(--mono);">123456</span>
+          </div>
+          <div style="font-size:0.8rem;color:var(--muted);margin-top:8px;">
+            O APIKEY é uma sequência numérica única gerada para o seu número. Guarde-o para usar no próximo passo.
+          </div>
+        </div>
+      </div>
+
+      <!-- Passo 4 -->
+      <div class="walk-item">
+        <div class="walk-bullet" style="background:rgba(37,211,102,0.15);color:#25d366;border:1px solid rgba(37,211,102,0.3);">4</div>
+        <div>
+          <div class="walk-title">Insira o Token e o Número no Aplicativo</div>
+          <div class="walk-desc">
+            Abra o aplicativo TJPI Selos, vá em <strong>Configurações → Alertas WhatsApp</strong> e preencha os dois campos:
+          </div>
+          <div style="background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:16px 18px;margin-top:12px;display:flex;flex-direction:column;gap:12px;">
+            <div>
+              <div style="font-size:0.72rem;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;">Campo: Token do Bot (APIKEY)</div>
+              <div style="background:var(--bg);border:1px solid var(--border2);border-radius:6px;padding:8px 12px;font-family:var(--mono);font-size:0.83rem;color:var(--warn);">123456</div>
+              <div style="font-size:0.75rem;color:var(--muted);margin-top:4px;">Cole aqui o APIKEY recebido do CallMeBot</div>
+            </div>
+            <div>
+              <div style="font-size:0.72rem;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;">Campo: Número WhatsApp</div>
+              <div style="background:var(--bg);border:1px solid var(--border2);border-radius:6px;padding:8px 12px;font-family:var(--mono);font-size:0.83rem;color:#25d366;">5586999990000</div>
+              <div style="font-size:0.75rem;color:var(--muted);margin-top:4px;">Seu número com código do país: 55 (Brasil) + DDD + número, sem espaços ou traços</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Passo 5 -->
+      <div class="walk-item">
+        <div class="walk-bullet" style="background:rgba(37,211,102,0.15);color:#25d366;border:1px solid rgba(37,211,102,0.3);">5</div>
+        <div>
+          <div class="walk-title">Salve e Teste a Integração</div>
+          <div class="walk-desc">
+            Clique em <strong>"Salvar"</strong> ou <strong>"Ativar Alertas"</strong>. O aplicativo enviará uma <strong>mensagem de teste</strong> via CallMeBot para confirmar que tudo está funcionando.
+          </div>
+          <div style="background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.25);border-radius:8px;padding:12px 16px;margin-top:12px;font-size:0.83rem;color:var(--accent2);display:flex;align-items:flex-start;gap:10px;">
+            <span style="flex-shrink:0;">✅</span>
+            <span>Se você receber uma mensagem de teste no WhatsApp, a integração está ativa e pronta para uso.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Passo 6 -->
+      <div class="walk-item">
+        <div class="walk-bullet" style="background:rgba(37,211,102,0.15);color:#25d366;border:1px solid rgba(37,211,102,0.3);">6</div>
+        <div>
+          <div class="walk-title">Pronto! Aguarde os Alertas Automáticos</div>
+          <div class="walk-desc">
+            Sempre que o Monitor detectar um novo período de restituição, você receberá uma mensagem como esta no WhatsApp:
+          </div>
+          <div style="background:#0b1014;border:1px solid #1a2a1a;border-radius:10px;padding:16px 18px;margin-top:12px;">
+            <div style="font-family:var(--mono);font-size:0.68rem;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;">Exemplo de alerta recebido</div>
+            <div style="display:flex;justify-content:flex-start;">
+              <div style="background:#1f2c34;color:#e9edef;padding:10px 14px;border-radius:10px 10px 10px 2px;max-width:90%;line-height:2;font-size:0.83rem;">
+                🔔 <strong style="color:#25d366;">ALERTA TJPI SELOS</strong><br>
+                📅 Período detectado: <span style="color:var(--accent);">Janeiro/2025</span><br>
+                💰 Valor: <span style="color:var(--accent2);">R$ 1.250,00</span><br>
+                🏦 Banco / Agência: <span style="color:#e9edef;">001 / 0042</span><br>
+                ⏱ Detectado em: <span style="color:rgba(255,255,255,0.5);">14:32:07</span>
+                <div style="font-size:0.68rem;color:rgba(255,255,255,0.35);text-align:right;margin-top:6px;">✓✓</div>
+              </div>
+            </div>
+          </div>
+          <div class="step-tip" style="margin-top:12px;">
+            O Monitor Automático precisa estar ativo para os alertas serem enviados. Certifique-se de que o app está aberto e o monitor iniciado na aba <strong>Monitor</strong>.
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 
