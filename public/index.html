@@ -811,6 +811,53 @@ footer {
   transform: translateY(0);
 }
 
+/* ── Video Tutorial ─────────────────────────────────────────────── */
+.video-outer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.video-intro {
+  font-size: 0.9rem;
+  color: var(--muted2);
+  line-height: 1.7;
+}
+
+.video-wrapper {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* proporção 16:9 */
+  height: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border2);
+  background: var(--panel);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+}
+
+.video-wrapper iframe {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  border: none;
+}
+
+.video-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: rgba(59,130,246,0.07);
+  border: 1px solid rgba(59,130,246,0.2);
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-size: 0.82rem;
+  color: var(--muted2);
+  line-height: 1.6;
+}
+
+.video-note::before { content: '💡'; flex-shrink: 0; }
+
 /* ── Responsive ─────────────────────────────────────────────────── */
 @media (max-width: 680px) {
   nav { padding: 0 20px; }
@@ -1059,6 +1106,7 @@ footer {
 
   <div class="tabs reveal">
     <div class="tab active" onclick="mudarTab('visao-geral', this)">Visão Geral</div>
+    <div class="tab" onclick="mudarTab('video', this)">▶ Vídeo Tutorial</div>
     <div class="tab" onclick="mudarTab('verificacao', this)">Verificação de Selos</div>
     <div class="tab" onclick="mudarTab('monitor', this)">Monitor Automático</div>
     <div class="tab" onclick="mudarTab('whatsapp', this)">📲 Alertas WhatsApp</div>
@@ -1086,6 +1134,31 @@ footer {
         <span class="feature-icon">🖥️</span>
         <div class="feature-title">Totalmente Offline Visual</div>
         <div class="feature-desc">Interface leve e rápida. Nenhum navegador é aberto — tudo acontece dentro do próprio aplicativo com automação em segundo plano.</div>
+      </div>
+    </div>
+  </div>
+
+  </div>
+
+  <!-- ── Tab: Vídeo Tutorial ──────────────────────────────────────── -->
+  <div id="tab-video" class="tab-content">
+    <div class="video-outer">
+      <p class="video-intro">
+        Assista ao tutorial completo abaixo e veja o <strong style="color:var(--text);">TJPI Selos</strong> em ação — do primeiro acesso à utilização do monitor automático e dos alertas por WhatsApp.
+      </p>
+
+      <div class="video-wrapper">
+        <iframe
+          src="https://www.youtube.com/embed/WHJkklbUB28"
+          title="Tutorial TJPI Selos — Guia Completo"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen>
+        </iframe>
+      </div>
+
+      <div class="video-note">
+        Caso o vídeo não carregue, verifique sua conexão com a internet ou acesse diretamente pelo YouTube.
+        Ative as legendas (CC) se necessário — disponíveis em Português.
       </div>
     </div>
   </div>
