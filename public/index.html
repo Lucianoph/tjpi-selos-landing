@@ -889,7 +889,7 @@ footer {
 
 <div id="hero">
   <div>
-    <div class="hero-tag">v1.0 — Versão atual 2026</div>
+    <div class="hero-tag">v1.1 — Versão atual 2026</div>
     <h1>
       <span class="accent-blue">TJPI</span>
       <span class="accent-green"> SELOS</span><br>
@@ -922,7 +922,7 @@ footer {
         <span class="lbl">Teste grátis</span>
       </div>
       <div class="hero-meta-item">
-        <span class="val">v1.0</span>
+        <span class="val">v1.1</span>
         <span class="lbl">Versão atual</span>
       </div>
     </div>
@@ -934,7 +934,7 @@ footer {
 <section id="download">
   <div class="section-label reveal">Download</div>
   <div class="section-title reveal">Baixe o Aplicativo</div>
-  <p class="section-sub reveal">Versão para Windows. Instale e comece a usar em menos de 2 minutos.</p>
+  <p class="section-sub reveal">Versão para Windows. Instale e comece a usar em menos de 2 minutos. Atualizado para v1.1.0.</p>
 
   <div class="download-grid reveal">
     <div class="dl-card featured">
@@ -944,7 +944,7 @@ footer {
       <div class="dl-info">
         <div class="dl-info-item">
           <span class="k">Versão</span>
-          <span class="v">1.0.0</span>
+          <span class="v">1.1.0</span>
         </div>
         <div class="dl-info-item">
           <span class="k">Tamanho</span>
@@ -955,7 +955,7 @@ footer {
           <span class="v">Windows 10+</span>
         </div>
       </div>
-      <a href="https://github.com/Lucianoph/tjpi-selos-landing/releases/download/v1.0.0/TJPI_Selos.exe" class="btn-download primary" download>
+      <a href="https://github.com/Lucianoph/tjpi-selos-landing/releases/tag/v1.1.0" class="btn-download primary" download>
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
         Download — Instalador (.exe)
       </a>
@@ -968,7 +968,7 @@ footer {
       <div class="dl-info">
         <div class="dl-info-item">
           <span class="k">Versão</span>
-          <span class="v">1.0.0</span>
+          <span class="v">1.1.0</span>
         </div>
         <div class="dl-info-item">
           <span class="k">Tamanho</span>
@@ -979,7 +979,7 @@ footer {
           <span class="v">Windows 10+</span>
         </div>
       </div>
-      <a href="https://github.com/Lucianoph/tjpi-selos-landing/releases/download/v1.0.0/TJPI_Selos.exe" class="btn-download secondary" download>
+      <a href="https://github.com/Lucianoph/tjpi-selos-landing/releases/tag/v1.1.0" class="btn-download secondary" download>
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
         Download — Portátil (.exe)
       </a>
@@ -1102,13 +1102,14 @@ footer {
 <section id="tutorial">
   <div class="section-label reveal">Tutorial</div>
   <div class="section-title reveal">Como Usar o Aplicativo</div>
-  <p class="section-sub reveal">Aprenda a usar todas as funcionalidades do TJPI Selos em poucos minutos.</p>
+  <p class="section-sub reveal">Fluxo atualizado da versão 1.1.0: selecione o PDF do cartório, confira os selos no TJPI/COJUB, gere relatório e cadastre faltantes com segurança.</p>
 
   <div class="tabs reveal">
     <div class="tab active" onclick="mudarTab('visao-geral', this)">Visão Geral</div>
     <div class="tab" onclick="mudarTab('video', this)">▶ Vídeo Tutorial</div>
-    <div class="tab" onclick="mudarTab('verificacao', this)">Verificação de Selos</div>
-    <div class="tab" onclick="mudarTab('monitor', this)">Monitor Automático</div>
+    <div class="tab" onclick="mudarTab('verificacao', this)">Conferência de Selos</div>
+    <div class="tab" onclick="mudarTab('cadastro', this)">Cadastro Automático</div>
+    <div class="tab" onclick="mudarTab('monitor', this)">Monitor de Restituição</div>
     <div class="tab" onclick="mudarTab('whatsapp', this)">📲 Alertas WhatsApp</div>
     <div class="tab" onclick="mudarTab('faq', this)">Perguntas Frequentes</div>
   </div>
@@ -1116,35 +1117,33 @@ footer {
   <div id="tab-visao-geral" class="tab-content active">
     <div class="feature-grid">
       <div class="feature-card">
-        <span class="feature-icon">⚖️</span>
-        <div class="feature-title">Verificação de Selos</div>
-        <div class="feature-desc">Consulte automaticamente selos nos atos gratuitos do TJPI. Insira os dados e obtenha o resultado em segundos.</div>
+        <span class="feature-icon">📄</span>
+        <div class="feature-title">PDF como base da conferência</div>
+        <div class="feature-desc">A verificação começa pelo relatório em PDF do cartório. O sistema extrai os selos únicos e usa essa lista como referência real da conferência.</div>
       </div>
       <div class="feature-card">
-        <span class="feature-icon">🔔</span>
-        <div class="feature-title">Monitor Automático</div>
-        <div class="feature-desc">Configure alertas para novos períodos de restituição. O app monitora em segundo plano e notifica quando há novidades disponíveis.</div>
+        <span class="feature-icon">🔍</span>
+        <div class="feature-title">Comparação com TJPI/COJUB</div>
+        <div class="feature-desc">Depois da leitura do PDF, o aplicativo coleta os dados do site e mostra quantos selos do PDF já estão cadastrados e quais ainda faltam.</div>
       </div>
       <div class="feature-card">
-        <span class="feature-icon">🔐</span>
-        <div class="feature-title">Login Automático</div>
-        <div class="feature-desc">Após o primeiro login, suas credenciais ficam salvas com segurança. Nas próximas vezes, o aplicativo abre direto sem pedir senha.</div>
+        <span class="feature-icon">🤖</span>
+        <div class="feature-title">Cadastro automático seguro</div>
+        <div class="feature-desc">Quando houver faltantes, o sistema pode tentar cadastrar automaticamente e identifica mensagens do COJUB, como campo obrigatório ou exigência de anexo.</div>
       </div>
       <div class="feature-card">
-        <span class="feature-icon">🖥️</span>
-        <div class="feature-title">Totalmente Offline Visual</div>
-        <div class="feature-desc">Interface leve e rápida. Nenhum navegador é aberto — tudo acontece dentro do próprio aplicativo com automação em segundo plano.</div>
+        <span class="feature-icon">📊</span>
+        <div class="feature-title">Relatórios e alertas</div>
+        <div class="feature-desc">Ao final, o sistema gera relatório Excel, classifica aprovados/pendentes/faltantes e pode enviar alertas pelo WhatsApp conforme sua configuração.</div>
       </div>
     </div>
-  </div>
-
   </div>
 
   <!-- ── Tab: Vídeo Tutorial ──────────────────────────────────────── -->
   <div id="tab-video" class="tab-content">
     <div class="video-outer">
       <p class="video-intro">
-        Assista ao tutorial completo abaixo e veja o <strong style="color:var(--text);">TJPI Selos</strong> em ação — do primeiro acesso à utilização do monitor automático e dos alertas por WhatsApp.
+        Assista ao tutorial completo abaixo e veja o <strong style="color:var(--text);">TJPI Selos</strong> em ação. O vídeo apresenta o uso geral do sistema; a versão 1.1.0 adiciona a conferência baseada no PDF e o tratamento melhorado de erros do COJUB.
       </p>
 
       <div class="video-wrapper">
@@ -1157,8 +1156,7 @@ footer {
       </div>
 
       <div class="video-note">
-        Caso o vídeo não carregue, verifique sua conexão com a internet ou acesse diretamente pelo YouTube.
-        Ative as legendas (CC) se necessário — disponíveis em Português.
+        Caso o vídeo não carregue, verifique sua conexão com a internet ou acesse diretamente pelo YouTube. Ative as legendas (CC) se necessário.
       </div>
     </div>
   </div>
@@ -1168,40 +1166,83 @@ footer {
       <div class="walk-item">
         <div class="walk-bullet">1</div>
         <div>
-          <div class="walk-title">Abra a aba de Verificação</div>
-          <div class="walk-desc">No menu principal do aplicativo, clique na aba <strong>Verificar Selo</strong>. Você verá um formulário com campos de entrada.</div>
+          <div class="walk-title">Selecione o PDF do cartório</div>
+          <div class="walk-desc">Na aba <strong>Selos</strong>, clique em <strong>Selecionar PDF</strong> e escolha o relatório de selos utilizados do cartório. A verificação só é liberada após o PDF ser carregado.</div>
         </div>
       </div>
       <div class="walk-item">
         <div class="walk-bullet">2</div>
         <div>
-          <div class="walk-title">Preencha os dados do ato</div>
-          <div class="walk-desc">Insira o número do ato ou código do selo nos campos indicados. Os dados são os mesmos encontrados no documento físico ou digital.</div>
+          <div class="walk-title">Escolha as opções de execução</div>
+          <div class="walk-desc">Mantenha marcada a opção <strong>Executar em segundo plano</strong> para rodar sem abrir o navegador. Marque também <strong>Gerar relatório Excel</strong> para salvar o resultado da conferência.</div>
         </div>
       </div>
       <div class="walk-item">
         <div class="walk-bullet">3</div>
         <div>
-          <div class="walk-title">Clique em "Verificar"</div>
-          <div class="walk-desc">O aplicativo acessa o portal do TJPI automaticamente, realiza a consulta e exibe o resultado na tela em poucos segundos.</div>
+          <div class="walk-title">Clique em “Verificar Selos”</div>
+          <div class="walk-desc">O sistema lê o PDF, coleta os dados do TJPI/COJUB e compara os dois lados. Se o login manual for necessário, faça login no navegador aberto e clique em <strong>Login OK</strong> na janela do sistema.</div>
         </div>
       </div>
       <div class="walk-item">
         <div class="walk-bullet">4</div>
         <div>
-          <div class="walk-title">Interprete o resultado</div>
-          <div class="walk-desc">
-            <strong style="color:var(--accent2)">✓ Verde</strong> — Selos Verificados.<br>
-            <strong style="color:var(--warn)">⚠ Amarelo</strong> — Período diferente do esperado.<br>
-            <strong style="color:var(--danger)">✗ Vermelho</strong> — Selo não encontrado ou inválido.
+          <div class="walk-title">Acompanhe o resultado no log</div>
+          <div class="walk-desc">O log mostra a contagem principal: <strong>PDF total</strong>, <strong>TJPI cadastrado</strong>, <strong>Faltantes PDF</strong>, <strong>Pendentes</strong>, <strong>Restituídos/Aprovados</strong> e o caminho do Excel gerado.</div>
+          <div class="code-block">
+            <span class="code-text">PDF total: 761 · TJPI cadastrado: 756 · Faltantes PDF: 5</span>
           </div>
         </div>
       </div>
       <div class="walk-item">
         <div class="walk-bullet">5</div>
         <div>
-          <div class="walk-title">Copie ou salve o resultado</div>
-          <div class="walk-desc">Use o botão <strong>Copiar</strong> para copiar os dados para a área de transferência, ou use o log interno para consultar verificações anteriores.</div>
+          <div class="walk-title">Revise os selos faltantes</div>
+          <div class="walk-desc">Se houver faltantes, o sistema lista cada selo com número, validador e dados extraídos do PDF. Em seguida, você pode confirmar ou adiar o cadastro automático.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="tab-cadastro" class="tab-content">
+    <div class="walkthrough">
+      <div class="walk-item">
+        <div class="walk-bullet">1</div>
+        <div>
+          <div class="walk-title">Confirme o cadastro dos faltantes</div>
+          <div class="walk-desc">Após a conferência, se o sistema encontrar selos do PDF que ainda não estão no TJPI/COJUB, será exibida uma confirmação para iniciar o cadastro automático.</div>
+        </div>
+      </div>
+      <div class="walk-item">
+        <div class="walk-bullet">2</div>
+        <div>
+          <div class="walk-title">Faça login quando solicitado</div>
+          <div class="walk-desc">Para cadastrar, o sistema abre o navegador com sessão autenticada. Faça login no TJPI/COJUB, quando necessário, e confirme em <strong>Login OK</strong>.</div>
+        </div>
+      </div>
+      <div class="walk-item">
+        <div class="walk-bullet">3</div>
+        <div>
+          <div class="walk-title">Acompanhe cada tentativa</div>
+          <div class="walk-desc">Cada selo será processado individualmente. O log mostra se o cadastro foi concluído, se exige anexo, se há campo obrigatório ou se o site retornou outra mensagem.</div>
+          <div class="code-block">
+            <span class="code-text">[OK] cadastrado · [ANEXO] exige comprovação · [CAMPO] campo obrigatório · [ERRO] erro do site</span>
+          </div>
+        </div>
+      </div>
+      <div class="walk-item">
+        <div class="walk-bullet">4</div>
+        <div>
+          <div class="walk-title">Quando aparecer “campo obrigatório”</div>
+          <div class="walk-desc">O selo não é marcado como cadastrado. Isso significa que o COJUB exigiu algum dado que não foi preenchido automaticamente, como beneficiário, causa de isenção ou outro campo da tela.</div>
+        </div>
+      </div>
+      <div class="walk-item">
+        <div class="walk-bullet">5</div>
+        <div>
+          <div class="walk-title">Quando aparecer “exige anexo”</div>
+          <div class="walk-desc">O cadastro é interrompido apenas para aquele selo e o sistema segue para o próximo. Esses casos devem ser revisados manualmente com o documento de comprovação ou ordem judicial exigida.</div>
+          <div class="step-tip">O sistema evita falso “cadastrado”: se o COJUB exibir mensagem de erro, o selo não entra como cadastrado.</div>
         </div>
       </div>
     </div>
@@ -1212,36 +1253,29 @@ footer {
       <div class="walk-item">
         <div class="walk-bullet">1</div>
         <div>
-          <div class="walk-title">Acesse a aba Monitor</div>
-          <div class="walk-desc">Clique em <strong>Monitor</strong> no menu. Esta aba permite configurar o monitoramento automático de novos períodos de restituição.</div>
+          <div class="walk-title">Acesse o Monitor de Restituição</div>
+          <div class="walk-desc">Na aba <strong>Monitor de Restituição</strong>, escolha o mês e o ano que você está aguardando.</div>
         </div>
       </div>
       <div class="walk-item">
         <div class="walk-bullet">2</div>
         <div>
-          <div class="walk-title">Configure o período aguardado</div>
-          <div class="walk-desc">Defina o <strong>mês e ano</strong> do período que você aguarda. O monitor irá verificar periodicamente se este período já está disponível no portal.</div>
+          <div class="walk-title">Inicie o monitoramento</div>
+          <div class="walk-desc">Clique em <strong>Iniciar Monitor</strong>. O sistema verificará periodicamente a página de restituição do TJPI e indicará o período atualmente disponível no site.</div>
         </div>
       </div>
       <div class="walk-item">
         <div class="walk-bullet">3</div>
         <div>
-          <div class="walk-title">Ative o monitoramento</div>
-          <div class="walk-desc">Clique em <strong>"Iniciar Monitor"</strong>. O aplicativo verificará o portal a cada intervalo configurado (padrão: 30 minutos) automaticamente.</div>
+          <div class="walk-title">Use “Verificar Agora” quando quiser</div>
+          <div class="walk-desc">Para uma consulta imediata, clique em <strong>Verificar Agora</strong>. O resultado aparece na tela com período, valor unitário, total de atos, valor total e dados bancários quando disponíveis.</div>
         </div>
       </div>
       <div class="walk-item">
         <div class="walk-bullet">4</div>
         <div>
-          <div class="walk-title">Receba o alerta</div>
-          <div class="walk-desc">Quando o período esperado for detectado, você receberá uma <strong>notificação sonora e visual</strong> imediatamente. O app não precisa estar em foco — funciona minimizado.</div>
-        </div>
-      </div>
-      <div class="walk-item">
-        <div class="walk-bullet">5</div>
-        <div>
-          <div class="walk-title">Consulte os dados encontrados</div>
-          <div class="walk-desc">Os dados do período detectado (valor, período, banco, agência) serão exibidos automaticamente na tela de resultado para sua revisão.</div>
+          <div class="walk-title">Receba alerta quando cair</div>
+          <div class="walk-desc">Quando o período aguardado for encontrado, o sistema exibe o resultado, envia alerta conforme sua configuração e para o monitor automaticamente para evitar notificações repetidas.</div>
         </div>
       </div>
     </div>
@@ -1256,8 +1290,7 @@ footer {
         <div>
           <div style="font-family:var(--mono);font-size:0.9rem;font-weight:700;color:#25d366;margin-bottom:4px;">CallMeBot — Alertas no WhatsApp em Tempo Real</div>
           <div style="font-size:0.85rem;color:var(--muted2);line-height:1.6;">
-            O sistema usa o serviço <strong style="color:var(--text);">CallMeBot</strong> para enviar alertas direto no seu WhatsApp quando um novo período de restituição for detectado.
-            A ativação é gratuita e leva menos de 2 minutos — basta seguir os passos abaixo.
+            O sistema usa o serviço <strong style="color:var(--text);">CallMeBot</strong> para enviar alertas direto no seu WhatsApp sobre conferência de selos e restituição mensal.
           </div>
         </div>
       </div>
@@ -1268,14 +1301,11 @@ footer {
         <div>
           <div class="walk-title">Adicione o número do CallMeBot nos seus contatos</div>
           <div class="walk-desc">
-            Antes de enviar qualquer mensagem, salve o número abaixo na sua agenda com o nome <strong>"CallMeBot"</strong> (ou qualquer nome que preferir). Isso é necessário para o WhatsApp permitir a conversa.
+            Salve o número abaixo na sua agenda com o nome <strong>CallMeBot</strong>. Isso é necessário para o WhatsApp permitir a conversa.
           </div>
           <div class="code-block" style="margin-top:10px;">
             <span class="code-text" style="color:#25d366;">+34 684 73 40 44</span>
             <button class="copy-btn" onclick="navigator.clipboard.writeText('+34684734044')">Copiar</button>
-          </div>
-          <div style="font-size:0.8rem;color:var(--muted);margin-top:8px;">
-            Este é o número oficial do CallMeBot para a API do WhatsApp.
           </div>
         </div>
       </div>
@@ -1284,37 +1314,16 @@ footer {
       <div class="walk-item">
         <div class="walk-bullet" style="background:rgba(37,211,102,0.15);color:#25d366;border:1px solid rgba(37,211,102,0.3);">2</div>
         <div>
-          <div class="walk-title">Envie a mensagem de ativação para o CallMeBot</div>
+          <div class="walk-title">Envie a mensagem de ativação</div>
           <div class="walk-desc">
-            Abra o WhatsApp, inicie uma conversa com o contato <strong>CallMeBot</strong> que você acabou de salvar e envie <strong>exatamente</strong> a mensagem abaixo (em inglês, como está):
+            No WhatsApp, envie exatamente esta mensagem para o contato CallMeBot:
           </div>
           <div class="code-block" style="margin-top:10px;">
             <span class="code-text" style="color:#25d366;">I allow callmebot to send me messages</span>
             <button class="copy-btn" onclick="navigator.clipboard.writeText('I allow callmebot to send me messages')">Copiar</button>
           </div>
-          <!-- Simulação de chat WhatsApp -->
-          <div style="background:#0b1014;border:1px solid #1a2a1a;border-radius:10px;padding:16px 18px;margin-top:14px;font-size:0.82rem;">
-            <div style="font-family:var(--mono);font-size:0.68rem;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;">Simulação da conversa</div>
-            <!-- Mensagem do usuário -->
-            <div style="display:flex;justify-content:flex-end;margin-bottom:10px;">
-              <div style="background:#005c4b;color:#e9edef;padding:8px 12px;border-radius:10px 10px 2px 10px;max-width:85%;line-height:1.5;">
-                I allow callmebot to send me messages
-                <div style="font-size:0.68rem;color:rgba(255,255,255,0.45);text-align:right;margin-top:4px;">✓✓</div>
-              </div>
-            </div>
-            <!-- Resposta do bot -->
-            <div style="display:flex;justify-content:flex-start;">
-              <div style="background:#1f2c34;color:#e9edef;padding:8px 12px;border-radius:10px 10px 10px 2px;max-width:85%;line-height:1.6;">
-                <span style="color:#25d366;font-weight:700;">CallMeBot</span><br>
-                API Activated for your phone number.<br>
-                Your APIKEY is <span style="color:#f59e0b;font-family:var(--mono);font-weight:700;">123456</span><br>
-                <span style="font-size:0.75rem;color:rgba(255,255,255,0.4);">Thanks for using the service</span>
-                <div style="font-size:0.68rem;color:rgba(255,255,255,0.35);text-align:right;margin-top:4px;">agora</div>
-              </div>
-            </div>
-          </div>
           <div class="step-tip" style="margin-top:12px;">
-            O bot pode demorar alguns minutos para responder na primeira vez. Se não responder em 5 minutos, tente enviar a mensagem novamente."Talvez ele esteja sobrecarregado e irá te enviar um novo número do CallMeBot para você utilizar!"
+            O bot pode demorar alguns minutos para responder. Se não responder em 5 minutos, envie a mensagem novamente.
           </div>
         </div>
       </div>
@@ -1323,15 +1332,12 @@ footer {
       <div class="walk-item">
         <div class="walk-bullet" style="background:rgba(37,211,102,0.15);color:#25d366;border:1px solid rgba(37,211,102,0.3);">3</div>
         <div>
-          <div class="walk-title">Copie o seu APIKEY (Token)</div>
+          <div class="walk-title">Copie o APIKEY recebido</div>
           <div class="walk-desc">
-            O CallMeBot irá responder com uma mensagem contendo o seu <strong>APIKEY</strong> — esse é o seu token pessoal. Copie apenas os números, como no exemplo:
+            O CallMeBot responderá com uma mensagem contendo o seu <strong>APIKEY</strong>. Copie apenas os números.
           </div>
           <div class="code-block" style="margin-top:10px;">
             <span class="code-text" style="color:var(--warn);font-family:var(--mono);">123456</span>
-          </div>
-          <div style="font-size:0.8rem;color:var(--muted);margin-top:8px;">
-            O APIKEY é uma sequência numérica única gerada para o seu número. Guarde-o para usar no próximo passo.
           </div>
         </div>
       </div>
@@ -1340,21 +1346,12 @@ footer {
       <div class="walk-item">
         <div class="walk-bullet" style="background:rgba(37,211,102,0.15);color:#25d366;border:1px solid rgba(37,211,102,0.3);">4</div>
         <div>
-          <div class="walk-title">Insira o Token e o Número no Aplicativo</div>
+          <div class="walk-title">Configure no TJPI Selos</div>
           <div class="walk-desc">
-            Abra o aplicativo TJPI Selos, vá em <strong>Configurações → Alertas WhatsApp</strong> e preencha os dois campos:
+            No aplicativo, abra <strong>Config TJPI → Alertas WhatsApp</strong>, ative os alertas e preencha a URL da API, o token/APIKEY e o número de destino com DDI e DDD.
           </div>
-          <div style="background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:16px 18px;margin-top:12px;display:flex;flex-direction:column;gap:12px;">
-            <div>
-              <div style="font-size:0.72rem;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;">Campo: Token do Bot (APIKEY)</div>
-              <div style="background:var(--bg);border:1px solid var(--border2);border-radius:6px;padding:8px 12px;font-family:var(--mono);font-size:0.83rem;color:var(--warn);">123456</div>
-              <div style="font-size:0.75rem;color:var(--muted);margin-top:4px;">Cole aqui o APIKEY recebido do CallMeBot</div>
-            </div>
-            <div>
-              <div style="font-size:0.72rem;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;">Campo: Número WhatsApp</div>
-              <div style="background:var(--bg);border:1px solid var(--border2);border-radius:6px;padding:8px 12px;font-family:var(--mono);font-size:0.83rem;color:#25d366;">5586999990000</div>
-              <div style="font-size:0.75rem;color:var(--muted);margin-top:4px;">Seu número com código do país: 55 (Brasil) + DDD + número, sem espaços ou traços</div>
-            </div>
+          <div class="code-block" style="margin-top:10px;">
+            <span class="code-text">Número exemplo: 5586999990000</span>
           </div>
         </div>
       </div>
@@ -1363,40 +1360,13 @@ footer {
       <div class="walk-item">
         <div class="walk-bullet" style="background:rgba(37,211,102,0.15);color:#25d366;border:1px solid rgba(37,211,102,0.3);">5</div>
         <div>
-          <div class="walk-title">Salve e Teste a Integração</div>
+          <div class="walk-title">Salve e teste</div>
           <div class="walk-desc">
-            Clique em <strong>"Salvar"</strong> ou <strong>"Ativar Alertas"</strong>. O aplicativo enviará uma <strong>mensagem de teste</strong> via CallMeBot para confirmar que tudo está funcionando.
+            Salve as configurações e faça uma verificação. Quando houver faltantes, pendentes ou restituição disponível, o sistema enviará o alerta conforme configurado.
           </div>
           <div style="background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.25);border-radius:8px;padding:12px 16px;margin-top:12px;font-size:0.83rem;color:var(--accent2);display:flex;align-items:flex-start;gap:10px;">
             <span style="flex-shrink:0;">✅</span>
-            <span>Se você receber uma mensagem de teste no WhatsApp, a integração está ativa e pronta para uso.</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Passo 6 -->
-      <div class="walk-item">
-        <div class="walk-bullet" style="background:rgba(37,211,102,0.15);color:#25d366;border:1px solid rgba(37,211,102,0.3);">6</div>
-        <div>
-          <div class="walk-title">Pronto! Aguarde os Alertas Automáticos</div>
-          <div class="walk-desc">
-            Sempre que o Monitor detectar um novo período de restituição, você receberá uma mensagem como esta no WhatsApp:
-          </div>
-          <div style="background:#0b1014;border:1px solid #1a2a1a;border-radius:10px;padding:16px 18px;margin-top:12px;">
-            <div style="font-family:var(--mono);font-size:0.68rem;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;">Exemplo de alerta recebido</div>
-            <div style="display:flex;justify-content:flex-start;">
-              <div style="background:#1f2c34;color:#e9edef;padding:10px 14px;border-radius:10px 10px 10px 2px;max-width:90%;line-height:2;font-size:0.83rem;">
-                🔔 <strong style="color:#25d366;">ALERTA TJPI SELOS</strong><br>
-                📅 Período detectado: <span style="color:var(--accent);">Janeiro/2025</span><br>
-                💰 Valor: <span style="color:var(--accent2);">R$ 1.250,00</span><br>
-                🏦 Banco / Agência: <span style="color:#e9edef;">001 / 0042</span><br>
-                ⏱ Detectado em: <span style="color:rgba(255,255,255,0.5);">14:32:07</span>
-                <div style="font-size:0.68rem;color:rgba(255,255,255,0.35);text-align:right;margin-top:6px;">✓✓</div>
-              </div>
-            </div>
-          </div>
-          <div class="step-tip" style="margin-top:12px;">
-            O Monitor Automático precisa estar ativo para os alertas serem enviados. Certifique-se de que o app está aberto e o monitor iniciado na aba <strong>Monitor</strong>.
+            <span>Se você receber a mensagem no WhatsApp, a integração está ativa.</span>
           </div>
         </div>
       </div>
@@ -1414,19 +1384,43 @@ footer {
         </div>
         <div class="faq-a">
           <div class="faq-a-inner">
-            Isso ocorre porque o aplicativo não possui assinatura digital. É um comportamento padrão do Windows SmartScreen. Na tela azul de alerta, clique em <strong>"Mais informações"</strong> e depois em <strong>"Executar assim mesmo"</strong>. O arquivo é seguro.
+            Isso ocorre porque o aplicativo não possui assinatura digital. Na tela azul de alerta, clique em <strong>Mais informações</strong> e depois em <strong>Executar assim mesmo</strong>.
           </div>
         </div>
       </div>
 
       <div class="faq-item">
         <div class="faq-q" onclick="toggleFaq(this)">
-          O aplicativo demorou muito para abrir na primeira vez. É normal?
+          Preciso selecionar o PDF em toda verificação?
           <span class="arrow">▼</span>
         </div>
         <div class="faq-a">
           <div class="faq-a-inner">
-            Sim. O servidor usa o plano gratuito do Render, que "dorme" após inatividade. Na primeira abertura do dia pode levar até 1 minuto para o servidor acordar. Uma barra de progresso é exibida durante esse tempo. Nas tentativas seguintes (mesmo dia) é instantâneo.
+            Sim. Na versão 1.1.0, o PDF do cartório é a base da conferência. Isso evita contagens incorretas e permite saber exatamente quais selos do relatório ainda faltam no TJPI/COJUB.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          O que significa “exige anexo”?
+          <span class="arrow">▼</span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            Significa que o COJUB retornou mensagem exigindo documento, comprovação ou ordem judicial. O sistema não marca esse selo como cadastrado; ele deve ser revisado manualmente com o anexo correto.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          O que significa “campo obrigatório”?
+          <span class="arrow">▼</span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            Significa que o COJUB exibiu uma mensagem pedindo algum campo obrigatório, como beneficiário ou causa de isenção. O selo não é considerado cadastrado e deve ser revisado.
           </div>
         </div>
       </div>
@@ -1438,31 +1432,7 @@ footer {
         </div>
         <div class="faq-a">
           <div class="faq-a-inner">
-            Não. Cada conta fica vinculada ao hardware do computador onde foi criada. Cada máquina permite apenas um cadastro gratuito de 30 dias. Se você trocar de computador, entre em contato com o administrador para desvincular sua conta do hardware anterior.
-          </div>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">
-          Meu período de teste expirou. Como renovar?
-          <span class="arrow">▼</span>
-        </div>
-        <div class="faq-a">
-          <div class="faq-a-inner">
-            Entre em contato com o administrador do sistema para renovar sua licença. A renovação é feita diretamente pelo painel administrative, adicionando mais dias à sua conta sem perda de dados ou configurações.
-          </div>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">
-          O monitor parou de funcionar do nada. O que pode ser?
-          <span class="arrow">▼</span>
-        </div>
-        <div class="faq-a">
-          <div class="faq-a-inner">
-            As causas mais comuns são: (1) computador entrou em modo de suspensão — reinicie o monitor após acordar a máquina; (2) sua sessão expirou após 8h — faça login novamente; (3) o portal do TJPI pode estar em manutenção temporária. Verifique os logs na aba de status do aplicativo.
+            Não. Cada conta fica vinculada ao hardware do computador onde foi criada. Se você trocar de computador, entre em contato com o administrador para desvincular sua conta do hardware anterior.
           </div>
         </div>
       </div>
@@ -1474,7 +1444,7 @@ footer {
         </div>
         <div class="faq-a">
           <div class="faq-a-inner">
-            Baixe o novo instalador nesta página e execute normalmente. O instalador sobrescreve a versão anterior mantendo suas configurações. Não é necessário desinstalar antes.
+            Baixe o novo arquivo nesta página e execute normalmente. A atualização sobrescreve a versão anterior mantendo suas configurações.
           </div>
         </div>
       </div>
@@ -1487,7 +1457,7 @@ footer {
 
 <footer>
   <span class="footer-brand">⚖ TJPI SELOS – Desenvolvido por Luciano Silva – Tel: (86)988599426</span>
-  <span class="footer-txt">Sistema de Verificação de Atos Gratuitos · v1.0</span>
+  <span class="footer-txt">Sistema de Verificação de Atos Gratuitos · v1.1</span>
   <span class="footer-txt">© 2026 — Todos os direitos reservados</span>
 </footer>
 
