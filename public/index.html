@@ -1,0 +1,2914 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TJPI Selos — Download</title>
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://tjpi-selos-landing.onrender.com/">
+<meta property="og:title" content="TJPI Selos — Download">
+<meta property="og:description" content="Aplicativo desktop para verificação automática de selos e atos gratuitos do Tribunal de Justiça do Piauí, com leitura de PDFs Notário, Arpenet/E-Ofício e Demaria, cadastro de faltantes e alertas via Telegram.">
+<meta property="og:image" content="https://tjpi-selos-landing.onrender.com/logo.png">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="TJPI Selos — Download">
+<meta name="twitter:description" content="Aplicativo desktop para verificação automática de selos e atos gratuitos do Tribunal de Justiça do Piauí, com leitura de PDFs Notário, Arpenet/E-Ofício e Demaria, cadastro de faltantes e alertas via Telegram.">
+<meta name="twitter:image" content="https://tjpi-selos-landing.onrender.com/logo.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ── Reset & Variables ──────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:       #0a0e1a;
+  --bg2:      #0d1120;
+  --panel:    #111827;
+  --card:     #1a2235;
+  --border:   #1e293b;
+  --border2:  #263045;
+  --accent:   #3b82f6;
+  --accent2:  #10b981;
+  --warn:     #f59e0b;
+  --danger:   #ef4444;
+  --text:     #e2e8f0;
+  --muted:    #64748b;
+  --muted2:   #94a3b8;
+  --mono:     'IBM Plex Mono', monospace;
+  --sans:     'IBM Plex Sans', sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ── Scrollbar ──────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+
+/* ── Grid noise texture overlay ────────────────────────────────── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    radial-gradient(ellipse 80% 50% at 20% -10%, rgba(59,130,246,0.07) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 110%, rgba(16,185,129,0.05) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Nav ────────────────────────────────────────────────────────── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: rgba(10,14,26,0.85);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 40px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-brand {
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 3px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-brand svg { width: 20px; height: 20px; }
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  list-style: none;
+}
+
+.nav-links a {
+  color: var(--muted2);
+  text-decoration: none;
+  font-size: 0.83rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover { color: var(--text); }
+
+.nav-cta {
+  background: var(--accent);
+  color: white !important;
+  padding: 7px 18px;
+  border-radius: 6px;
+  font-weight: 600 !important;
+  transition: opacity 0.2s !important;
+}
+
+.nav-cta:hover { opacity: 0.85; }
+
+/* ── Hero ───────────────────────────────────────────────────────── */
+#hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 100px 24px 80px;
+  z-index: 1;
+}
+
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(59,130,246,0.1);
+  border: 1px solid rgba(59,130,246,0.25);
+  color: var(--accent);
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 2px;
+  padding: 5px 14px;
+  border-radius: 20px;
+  margin-bottom: 28px;
+  animation: fadeUp 0.6s ease both;
+}
+
+.hero-tag::before {
+  content: '';
+  width: 6px; height: 6px;
+  background: var(--accent2);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.8); }
+}
+
+h1 {
+  font-family: var(--mono);
+  font-size: clamp(2.4rem, 6vw, 4.2rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -1px;
+  margin-bottom: 20px;
+  animation: fadeUp 0.6s 0.1s ease both;
+}
+
+h1 .accent-blue { color: var(--accent); }
+h1 .accent-green { color: var(--accent2); }
+
+.hero-desc {
+  font-size: 1.05rem;
+  color: var(--muted2);
+  max-width: 540px;
+  margin: 0 auto 40px;
+  font-weight: 300;
+  line-height: 1.7;
+  animation: fadeUp 0.6s 0.2s ease both;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+  animation: fadeUp 0.6s 0.3s ease both;
+}
+
+.btn-hero-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--accent);
+  color: white;
+  text-decoration: none;
+  padding: 14px 30px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  transition: all 0.2s;
+  box-shadow: 0 4px 20px rgba(59,130,246,0.3);
+}
+
+.btn-hero-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(59,130,246,0.4);
+}
+
+.btn-hero-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: transparent;
+  color: var(--muted2);
+  text-decoration: none;
+  padding: 14px 24px;
+  border-radius: 8px;
+  font-size: 0.92rem;
+  font-weight: 500;
+  border: 1px solid var(--border2);
+  transition: all 0.2s;
+}
+
+.btn-hero-secondary:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.hero-meta {
+  margin-top: 48px;
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  flex-wrap: wrap;
+  animation: fadeUp 0.6s 0.4s ease both;
+}
+
+.hero-meta-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.hero-meta-item .val {
+  font-family: var(--mono);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.hero-meta-item .lbl {
+  font-size: 0.75rem;
+  color: var(--muted);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* ── Divider line ───────────────────────────────────────────────── */
+.divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border2), transparent);
+}
+
+/* ── Section wrapper ────────────────────────────────────────────── */
+section {
+  position: relative;
+  z-index: 1;
+  padding: 80px 24px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 3px;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.section-label::before {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 1px;
+  background: var(--accent);
+}
+
+.section-title {
+  font-family: var(--mono);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 700;
+  margin-bottom: 12px;
+  letter-spacing: -0.5px;
+}
+
+.section-sub {
+  color: var(--muted2);
+  font-size: 0.95rem;
+  max-width: 560px;
+  margin-bottom: 48px;
+  font-weight: 300;
+}
+
+/* ── Download cards ─────────────────────────────────────────────── */
+#download {
+  padding-top: 100px;
+}
+
+.download-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.dl-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 28px;
+  transition: border-color 0.2s, transform 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.dl-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.dl-card:hover {
+  border-color: var(--border2);
+  transform: translateY(-2px);
+}
+
+.dl-card:hover::before { opacity: 1; }
+
+.dl-card.featured {
+  border-color: rgba(59,130,246,0.3);
+  background: linear-gradient(135deg, #1a2235, #111f35);
+}
+
+.dl-card.featured::before { opacity: 1; }
+
+.dl-badge {
+  display: inline-block;
+  background: rgba(16,185,129,0.15);
+  color: var(--accent2);
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 1.5px;
+  padding: 3px 10px;
+  border-radius: 4px;
+  margin-bottom: 16px;
+}
+
+.dl-title {
+  font-family: var(--mono);
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.dl-desc {
+  color: var(--muted2);
+  font-size: 0.85rem;
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+
+.dl-info {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.dl-info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.dl-info-item .k {
+  font-size: 0.68rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.dl-info-item .v {
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  color: var(--text);
+}
+
+.btn-download {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 12px;
+  border-radius: 7px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s;
+}
+
+.btn-download.primary {
+  background: var(--accent);
+  color: white;
+  box-shadow: 0 4px 14px rgba(59,130,246,0.25);
+}
+
+.btn-download.primary:hover {
+  box-shadow: 0 6px 20px rgba(59,130,246,0.4);
+  transform: translateY(-1px);
+}
+
+.btn-download.secondary {
+  background: var(--border);
+  color: var(--muted2);
+}
+
+.btn-download.secondary:hover {
+  background: var(--border2);
+  color: var(--text);
+}
+
+.sys-req {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 24px 28px;
+  margin-top: 24px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.sys-req-item .k {
+  font-size: 0.7rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+}
+
+.sys-req-item .v {
+  font-size: 0.85rem;
+  color: var(--muted2);
+  font-weight: 500;
+}
+
+/* ── Steps (install) ────────────────────────────────────────────── */
+#install { border-top: 1px solid var(--border); }
+
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: relative;
+}
+
+.steps::before {
+  content: '';
+  position: absolute;
+  left: 23px;
+  top: 48px;
+  bottom: 48px;
+  width: 1px;
+  background: linear-gradient(180deg, var(--accent) 0%, var(--border) 100%);
+}
+
+.step {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: 24px;
+  padding: 24px 0;
+  position: relative;
+  opacity: 0;
+  transform: translateX(-16px);
+  transition: all 0.5s ease;
+}
+
+.step.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.step-num {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--card);
+  border: 1px solid var(--border2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--accent);
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+  transition: all 0.3s;
+}
+
+.step:hover .step-num {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
+  box-shadow: 0 0 20px rgba(59,130,246,0.4);
+}
+
+.step-content {}
+
+.step-title {
+  font-family: var(--mono);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+
+.step-body {
+  color: var(--muted2);
+  font-size: 0.88rem;
+  line-height: 1.7;
+}
+
+.step-body strong { color: var(--text); font-weight: 600; }
+
+.code-block {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  color: var(--accent2);
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.code-block .code-text { flex: 1; word-break: break-all; }
+
+.copy-btn {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 0.72rem;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+  font-family: var(--mono);
+}
+
+.copy-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.step-tip {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: rgba(245,158,11,0.08);
+  border: 1px solid rgba(245,158,11,0.2);
+  border-radius: 6px;
+  padding: 10px 14px;
+  margin-top: 10px;
+  font-size: 0.82rem;
+  color: var(--warn);
+  line-height: 1.5;
+}
+
+.step-tip::before { content: '⚠'; flex-shrink: 0; }
+
+/* ── Tutorial ────────────────────────────────────────────────────── */
+#tutorial { border-top: 1px solid var(--border); }
+
+.tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 36px;
+  overflow-x: auto;
+}
+
+.tab {
+  padding: 12px 22px;
+  font-size: 0.83rem;
+  font-weight: 500;
+  color: var(--muted);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+  transition: all 0.2s;
+  user-select: none;
+}
+
+.tab.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+.tab:hover:not(.active) { color: var(--muted2); }
+
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+/* Tutorial feature cards */
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.feature-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 22px;
+  transition: border-color 0.2s;
+}
+
+.feature-card:hover { border-color: var(--border2); }
+
+.feature-icon {
+  font-size: 1.6rem;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.feature-title {
+  font-family: var(--mono);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+
+.feature-desc {
+  font-size: 0.82rem;
+  color: var(--muted2);
+  line-height: 1.6;
+}
+
+/* Tutorial walkthrough */
+.walkthrough {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.walk-item {
+  display: grid;
+  grid-template-columns: 36px 1fr;
+  gap: 16px;
+  align-items: start;
+}
+
+.walk-bullet {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: rgba(59,130,246,0.12);
+  border: 1px solid rgba(59,130,246,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.walk-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.walk-desc {
+  font-size: 0.83rem;
+  color: var(--muted2);
+  line-height: 1.6;
+}
+
+/* FAQ */
+.faq-list { display: flex; flex-direction: column; gap: 12px; }
+
+.faq-item {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.faq-q {
+  padding: 16px 20px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text);
+  user-select: none;
+  transition: background 0.2s;
+}
+
+.faq-q:hover { background: rgba(255,255,255,0.02); }
+
+.faq-q .arrow {
+  color: var(--muted);
+  font-size: 0.75rem;
+  transition: transform 0.25s;
+}
+
+.faq-item.open .faq-q .arrow { transform: rotate(180deg); }
+
+.faq-a {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.faq-a-inner {
+  padding: 0 20px 16px;
+  font-size: 0.85rem;
+  color: var(--muted2);
+  line-height: 1.7;
+  border-top: 1px solid var(--border);
+}
+
+/* ── Footer ─────────────────────────────────────────────────────── */
+footer {
+  position: relative;
+  z-index: 1;
+  border-top: 1px solid var(--border);
+  padding: 32px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: gap;
+  gap: 16px;
+}
+
+.footer-brand {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  color: var(--accent);
+  letter-spacing: 2px;
+}
+
+.footer-txt {
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+/* ── Animations ─────────────────────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Video Tutorial ─────────────────────────────────────────────── */
+.video-outer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.video-intro {
+  font-size: 0.9rem;
+  color: var(--muted2);
+  line-height: 1.7;
+}
+
+.video-wrapper {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* proporção 16:9 */
+  height: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border2);
+  background: var(--panel);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+}
+
+.video-wrapper iframe {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  border: none;
+}
+
+.video-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: rgba(59,130,246,0.07);
+  border: 1px solid rgba(59,130,246,0.2);
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-size: 0.82rem;
+  color: var(--muted2);
+  line-height: 1.6;
+}
+
+.video-note::before { content: '💡'; flex-shrink: 0; }
+
+/* ── Responsive ─────────────────────────────────────────────────── */
+@media (max-width: 680px) {
+  nav { padding: 0 20px; }
+  .nav-links { display: none; }
+  .download-grid { grid-template-columns: 1fr; }
+  .sys-req { grid-template-columns: 1fr 1fr; }
+  .feature-grid { grid-template-columns: 1fr; }
+  section { padding: 60px 20px; }
+  footer { flex-direction: column; text-align: center; }
+}
+
+
+/* ── Seções comerciais inspiradas nas artes promocionais ─────────────── */
+#apresentacao {
+  max-width: 1180px;
+  padding-top: 92px;
+}
+
+.promo-page {
+  position: relative;
+  overflow: hidden;
+  border-radius: 28px;
+  border: 1px solid rgba(148,163,184,0.22);
+  margin: 26px 0;
+  box-shadow: 0 28px 80px rgba(0,0,0,0.28);
+}
+
+.promo-page.light {
+  background:
+    radial-gradient(circle at 75% 15%, rgba(16,185,129,0.12), transparent 34%),
+    linear-gradient(135deg, #f8fafc 0%, #ffffff 48%, #eef6f1 100%);
+  color: #0b1930;
+}
+
+.promo-page.dark {
+  background:
+    radial-gradient(circle at 84% 18%, rgba(245,158,11,0.17), transparent 34%),
+    linear-gradient(135deg, #07111f 0%, #0b1830 52%, #07101d 100%);
+  color: #f8fafc;
+}
+
+.promo-inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 28px;
+  padding: 38px;
+}
+
+.promo-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--mono);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  color: #0f7a3a;
+  margin-bottom: 14px;
+  font-weight: 700;
+}
+
+.promo-page.dark .promo-eyebrow { color: #f5c451; }
+
+.promo-title {
+  font-family: var(--sans);
+  font-size: clamp(2.2rem, 5vw, 4.6rem);
+  line-height: 0.96;
+  letter-spacing: -2px;
+  font-weight: 800;
+  margin-bottom: 16px;
+}
+
+.promo-title .gold { color: #c99b32; }
+.promo-title .green { color: #16a34a; }
+.promo-page.dark .promo-title .gold {
+  background: linear-gradient(180deg, #fff2b6, #d4a231 62%, #8b6416);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.promo-subtitle {
+  max-width: 640px;
+  font-size: 1.15rem;
+  color: #334155;
+  line-height: 1.55;
+  margin-bottom: 24px;
+}
+
+.promo-page.dark .promo-subtitle { color: #d6deea; }
+.promo-subtitle strong { color: inherit; }
+
+.promo-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 22px 0 8px;
+}
+
+.promo-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border-radius: 14px;
+  padding: 13px 20px;
+  font-weight: 800;
+  text-decoration: none;
+  letter-spacing: 0.3px;
+  transition: transform .2s, box-shadow .2s, opacity .2s;
+}
+.promo-btn:hover { transform: translateY(-2px); }
+.promo-btn.primary {
+  background: linear-gradient(135deg, #0f172a, #0b5b2a);
+  color: white;
+  box-shadow: 0 14px 30px rgba(15,23,42,0.25);
+}
+.promo-page.dark .promo-btn.primary {
+  background: linear-gradient(135deg, #f7ce66, #b9841a);
+  color: #07101d;
+}
+.promo-btn.secondary {
+  border: 1px solid rgba(15,23,42,0.18);
+  color: #0f172a;
+  background: rgba(255,255,255,0.72);
+}
+.promo-page.dark .promo-btn.secondary {
+  color: #f8fafc;
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(255,255,255,0.16);
+}
+
+.compliance-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 18px;
+  border: 1px solid rgba(22,163,74,0.32);
+  border-radius: 15px;
+  background: rgba(22,163,74,0.07);
+  font-size: .88rem;
+  color: #14532d;
+  margin-top: 8px;
+}
+.promo-page.dark .compliance-pill {
+  color: #f8fafc;
+  border-color: rgba(245,158,11,0.34);
+  background: rgba(245,158,11,0.08);
+}
+.compliance-pill strong { color: #166534; }
+.promo-page.dark .compliance-pill strong { color: #f5c451; }
+
+.feature-strip {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+  margin-top: 24px;
+}
+.feature-mini {
+  background: rgba(255,255,255,0.74);
+  border: 1px solid rgba(15,23,42,0.1);
+  border-radius: 16px;
+  padding: 15px 13px;
+  text-align: center;
+}
+.promo-page.dark .feature-mini {
+  background: rgba(7,17,31,0.7);
+  border-color: rgba(255,255,255,0.14);
+}
+.feature-mini .ico { font-size: 1.6rem; display: block; margin-bottom: 8px; }
+.feature-mini b { display: block; font-size: .79rem; line-height: 1.25; }
+.feature-mini span { display: block; color: #64748b; font-size: .72rem; margin-top: 4px; }
+.promo-page.dark .feature-mini span { color: #9fb0c7; }
+
+.mockup-wrap { display: flex; flex-direction: column; gap: 18px; }
+.laptop-mock {
+  background: linear-gradient(135deg, #0f172a, #020617);
+  border: 1px solid rgba(255,255,255,0.16);
+  border-radius: 22px;
+  padding: 18px;
+  box-shadow: 0 24px 55px rgba(2,6,23,0.32);
+  transform: perspective(900px) rotateY(-5deg) rotateX(2deg);
+}
+.mock-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; color: #e2e8f0; font-family: var(--mono); font-size: .75rem; }
+.mock-screen { background: #f8fafc; border-radius: 14px; padding: 16px; color: #0f172a; }
+.mock-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 14px; }
+.mock-stat { background: #eef2f7; border-radius: 11px; padding: 12px; }
+.mock-stat b { display: block; font-size: 1.1rem; color: #0f172a; }
+.mock-stat span { font-size: .68rem; color: #64748b; }
+.mock-panels { display: grid; grid-template-columns: 1.2fr .8fr; gap: 12px; }
+.mock-chart, .mock-activity { background: #fff; border: 1px solid #e2e8f0; border-radius: 13px; padding: 12px; min-height: 132px; }
+.chart-bars { display: flex; align-items: end; gap: 7px; height: 80px; margin-top: 16px; }
+.chart-bars i { display: block; width: 100%; border-radius: 8px 8px 0 0; background: linear-gradient(180deg, #16a34a, #86efac); }
+.mock-activity p { font-size: .72rem; color: #475569; margin: 9px 0; }
+.mock-activity p::before { content: '✓'; color: #16a34a; margin-right: 6px; font-weight: 800; }
+
+.benefit-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.benefit-card {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  background: rgba(255,255,255,0.7);
+  border: 1px solid rgba(15,23,42,0.1);
+  border-radius: 16px;
+  padding: 15px;
+  color: #0f172a;
+}
+.benefit-card .ico { font-size: 1.35rem; }
+.benefit-card b { display:block; margin-bottom: 3px; }
+.benefit-card span { color:#64748b; font-size:.82rem; line-height:1.35; }
+
+#planos { max-width: 1180px; padding-top: 80px; }
+.pricing-board {
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01)),
+    var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 26px;
+  padding: 28px;
+  box-shadow: 0 20px 60px rgba(0,0,0,.25);
+}
+.pricing-head { text-align:center; margin-bottom: 26px; }
+.pricing-head h2 { font-family:var(--mono); letter-spacing:1px; }
+.pricing-head p { color:var(--muted2); margin-top: 6px; }
+.pricing-grid {
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+.price-card {
+  position: relative;
+  background: #fff;
+  color: #0f172a;
+  border: 1px solid rgba(15,23,42,0.12);
+  border-radius: 20px;
+  padding: 24px;
+  min-height: 370px;
+  display:flex;
+  flex-direction:column;
+}
+.price-card.featured { border-color:#16a34a; box-shadow: 0 18px 45px rgba(22,163,74,0.22); transform: translateY(-6px); }
+.price-badge {
+  position:absolute; top:-13px; left:50%; transform:translateX(-50%);
+  background:#16a34a; color:white; font-size:.7rem; font-weight:800; letter-spacing:.8px;
+  border-radius: 999px; padding: 6px 14px;
+}
+.price-card h3 { text-align:center; color:#166534; font-family:var(--mono); margin-bottom:4px; }
+.price-desc { text-align:center; color:#64748b; font-size:.83rem; min-height:36px; }
+.price-value { text-align:center; margin: 15px 0 18px; font-weight:800; }
+.price-value .currency { font-size:1rem; vertical-align:top; }
+.price-value .amount { font-size:2.6rem; letter-spacing:-1.5px; }
+.price-value .month { color:#334155; font-size:.95rem; }
+.price-features { list-style:none; display:flex; flex-direction:column; gap:10px; margin: 0 0 20px; flex:1; }
+.price-features li { font-size:.86rem; display:flex; gap:8px; align-items:flex-start; }
+.price-features li::before { content:'✓'; color:#16a34a; font-weight:900; }
+.price-btn {
+  display:flex; align-items:center; justify-content:center;
+  text-decoration:none; font-weight:800; border-radius:12px; padding:12px 14px;
+  border:1px solid #166534; color:#166534;
+}
+.price-card.featured .price-btn { background:#166534; color:white; }
+
+.promo-results {
+  display:grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-top: 18px;
+}
+.result-card {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.11);
+  border-radius: 16px;
+  padding: 15px;
+  color:#e2e8f0;
+}
+.result-card b { color:#f5c451; display:block; margin-bottom:3px; }
+.result-card span { color:#aebbd0; font-size:.82rem; }
+
+@media (max-width: 960px) {
+  .promo-inner, .pricing-grid { grid-template-columns: 1fr; }
+  .feature-strip { grid-template-columns: repeat(2, 1fr); }
+  .mock-stats, .promo-results { grid-template-columns: repeat(2, 1fr); }
+  .laptop-mock { transform: none; }
+}
+
+@media (max-width: 560px) {
+  .promo-inner { padding: 24px; }
+  .feature-strip, .benefit-list, .mock-panels, .mock-stats, .promo-results { grid-template-columns: 1fr; }
+  .promo-title { font-size: 2.6rem; }
+}
+
+
+
+/* ── Landing profissional premium — versão comercial ───────────── */
+:root {
+  --pro-navy: #07111f;
+  --pro-navy2: #0b1d34;
+  --pro-green: #16a34a;
+  --pro-green2: #22c55e;
+  --pro-gold: #d4a231;
+  --pro-ink: #0f172a;
+  --pro-surface: #ffffff;
+  --pro-soft: #f6f9fc;
+}
+
+nav {
+  height: 66px;
+  background: rgba(7,17,31,0.82);
+  border-bottom: 1px solid rgba(148,163,184,0.14);
+  box-shadow: 0 10px 34px rgba(2,6,23,0.25);
+}
+.nav-brand { color: #e8eef8; }
+.nav-brand::after {
+  content: 'PRO';
+  font-size: .58rem;
+  color: #07111f;
+  background: linear-gradient(135deg, #f5d16d, #b98116);
+  padding: 2px 7px;
+  border-radius: 999px;
+  letter-spacing: .8px;
+}
+.nav-cta {
+  background: linear-gradient(135deg, #22c55e, #0f8a3d);
+  box-shadow: 0 8px 22px rgba(34,197,94,.24);
+}
+
+#hero.pro-hero {
+  min-height: 94vh;
+  padding: 104px 26px 62px;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(34,197,94,.16), transparent 24%),
+    radial-gradient(circle at 78% 18%, rgba(212,162,49,.17), transparent 25%),
+    linear-gradient(135deg, #06111f 0%, #0a1628 48%, #07111f 100%);
+  overflow: hidden;
+  text-align: left;
+}
+#hero.pro-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: linear-gradient(to bottom, black, transparent 85%);
+  pointer-events: none;
+}
+.pro-hero-shell {
+  position: relative;
+  z-index: 1;
+  width: min(1180px, 100%);
+  display: grid;
+  grid-template-columns: 1.02fr .98fr;
+  gap: 42px;
+  align-items: center;
+  margin: 0 auto;
+}
+.pro-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 13px;
+  border-radius: 999px;
+  border: 1px solid rgba(34,197,94,.28);
+  background: rgba(34,197,94,.08);
+  color: #86efac;
+  font-family: var(--mono);
+  font-size: .74rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 800;
+  margin-bottom: 22px;
+}
+.pro-kicker::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 18px rgba(34,197,94,.9);
+}
+.pro-hero-title {
+  font-family: var(--sans);
+  font-size: clamp(3.0rem, 7vw, 6.3rem);
+  line-height: .9;
+  letter-spacing: -4px;
+  font-weight: 900;
+  color: #fff;
+  margin: 0 0 20px;
+}
+.pro-hero-title .gold {
+  background: linear-gradient(180deg, #fff4c2 0%, #d9a736 55%, #8b6416 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: none;
+}
+.pro-hero-sub {
+  color: #cbd5e1;
+  font-size: 1.18rem;
+  line-height: 1.65;
+  max-width: 620px;
+  margin-bottom: 22px;
+}
+.pro-hero-sub strong { color: #fff; }
+.pro-cta-row { display: flex; flex-wrap: wrap; gap: 13px; margin: 24px 0 20px; }
+.pro-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 50px;
+  border-radius: 14px;
+  padding: 14px 22px;
+  text-decoration: none;
+  font-weight: 900;
+  letter-spacing: .2px;
+  transition: transform .2s, box-shadow .2s, background .2s;
+}
+.pro-cta:hover { transform: translateY(-2px); }
+.pro-cta.primary {
+  color: #07111f;
+  background: linear-gradient(135deg, #f6d66f, #d4a231);
+  box-shadow: 0 20px 44px rgba(212,162,49,.26);
+}
+.pro-cta.green {
+  color: white;
+  background: linear-gradient(135deg, #22c55e, #107a38);
+  box-shadow: 0 20px 44px rgba(34,197,94,.22);
+}
+.pro-cta.ghost {
+  color: #e2e8f0;
+  border: 1px solid rgba(255,255,255,.16);
+  background: rgba(255,255,255,.06);
+  backdrop-filter: blur(12px);
+}
+.pro-proof-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  max-width: 620px;
+  margin-top: 22px;
+}
+.pro-proof {
+  border: 1px solid rgba(148,163,184,.18);
+  background: rgba(255,255,255,.055);
+  border-radius: 16px;
+  padding: 14px;
+  color: #e2e8f0;
+}
+.pro-proof b { display: block; color: #fff; font-size: 1.1rem; }
+.pro-proof span { color: #9fb0c7; font-size: .8rem; }
+.pro-law-card {
+  max-width: 690px;
+  margin-top: 18px;
+  display: flex;
+  gap: 13px;
+  align-items: flex-start;
+  border: 1px solid rgba(212,162,49,.34);
+  background: linear-gradient(135deg, rgba(212,162,49,.14), rgba(255,255,255,.04));
+  padding: 15px 17px;
+  border-radius: 16px;
+  color: #f8fafc;
+}
+.pro-law-card .seal {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f7d36c, #a66e12);
+  display: grid;
+  place-items: center;
+  color: #07111f;
+  font-size: 1.35rem;
+  flex: 0 0 auto;
+  box-shadow: 0 10px 24px rgba(212,162,49,.22);
+}
+.pro-law-card b { color: #f7d36c; }
+
+.pro-hero-visual { position: relative; min-height: 545px; display: grid; align-items: center; }
+.pro-dashboard {
+  position: relative;
+  border-radius: 28px;
+  border: 1px solid rgba(255,255,255,.18);
+  background: linear-gradient(145deg, #111827, #020617 80%);
+  box-shadow: 0 36px 90px rgba(0,0,0,.45);
+  padding: 18px;
+  transform: perspective(1200px) rotateY(-8deg) rotateX(4deg);
+}
+.pro-dashboard::after {
+  content: '';
+  position: absolute;
+  left: 12%; right: 12%; bottom: -18px; height: 18px;
+  border-radius: 0 0 22px 22px;
+  background: linear-gradient(90deg, #8b96a8, #d5dbe4, #6f7b8e);
+  opacity: .75;
+}
+.pro-dash-top { display: flex; justify-content: space-between; align-items: center; padding: 4px 4px 16px; color: #e2e8f0; font-family: var(--mono); font-size: .75rem; }
+.pro-dash-top strong { color: #86efac; }
+.pro-dash-screen {
+  border-radius: 18px;
+  background: #f8fafc;
+  color: #0f172a;
+  padding: 18px;
+  min-height: 360px;
+}
+.pro-dash-grid { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+.pro-metric {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 13px;
+  box-shadow: 0 10px 22px rgba(15,23,42,.05);
+}
+.pro-metric span { color: #64748b; font-size: .72rem; }
+.pro-metric b { display: block; font-size: 1.45rem; margin-top: 2px; }
+.pro-metric.good b { color: #16a34a; }
+.pro-metric.warn b { color: #f59e0b; }
+.pro-metric.bad b { color: #ef4444; }
+.pro-chart-panel { display: grid; grid-template-columns: 1.25fr .75fr; gap: 14px; }
+.pro-chart, .pro-feed {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 15px;
+}
+.pro-bars { display: flex; align-items: end; gap: 8px; height: 145px; padding-top: 16px; }
+.pro-bars i { flex: 1; display: block; border-radius: 9px 9px 0 0; background: linear-gradient(180deg, #22c55e, #bbf7d0); }
+.pro-feed p { display: flex; gap: 8px; align-items: flex-start; font-size: .78rem; color: #475569; margin: 12px 0; }
+.pro-feed p::before { content:'✓'; color: #16a34a; font-weight: 900; }
+.pro-float-badge {
+  position: absolute;
+  right: -18px;
+  top: 38px;
+  width: 134px;
+  height: 134px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #ffffff, #d4a231 64%, #8a5d12);
+  color: #07111f;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  font-size: .72rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  box-shadow: 0 22px 50px rgba(212,162,49,.35);
+  border: 5px solid rgba(255,255,255,.35);
+}
+.pro-float-badge span { display:block; font-size:1.95rem; line-height:1; }
+.pro-floating-price {
+  position: absolute;
+  left: -22px;
+  bottom: 45px;
+  border-radius: 18px;
+  background: rgba(255,255,255,.95);
+  color: #0f172a;
+  border: 1px solid rgba(15,23,42,.08);
+  box-shadow: 0 22px 45px rgba(2,6,23,.22);
+  padding: 17px 18px;
+  width: 230px;
+}
+.pro-floating-price small { color:#64748b; font-weight:700; }
+.pro-floating-price b { display:block; font-size:1.8rem; color:#166534; line-height:1.1; }
+.pro-floating-price span { font-size:.78rem; color:#475569; }
+
+.pro-section {
+  max-width: 1180px;
+  padding-top: 92px;
+}
+.pro-section-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 30px;
+  border: 1px solid rgba(148,163,184,.2);
+  background: linear-gradient(135deg, #ffffff, #f8fbff 58%, #effaf4);
+  color: #0f172a;
+  padding: 32px;
+  box-shadow: 0 28px 70px rgba(2,6,23,.12);
+}
+.pro-section-card::before {
+  content:'';
+  position:absolute;
+  inset:auto -10% -50% 45%;
+  height: 360px;
+  background: radial-gradient(circle, rgba(34,197,94,.12), transparent 62%);
+}
+.pro-feature-head { display:flex; justify-content:space-between; align-items:end; gap:20px; margin-bottom: 26px; position:relative; z-index:1; }
+.pro-feature-head h2 { font-size: clamp(1.8rem, 4vw, 3rem); line-height:1.05; letter-spacing:-1px; margin:0; }
+.pro-feature-head p { color:#475569; max-width: 500px; margin:0; }
+.pro-feature-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.pro-feature-card {
+  background: rgba(255,255,255,.78);
+  border: 1px solid rgba(15,23,42,.1);
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 14px 34px rgba(15,23,42,.06);
+}
+.pro-feature-card .icon {
+  width: 48px;
+  height: 48px;
+  display:grid;
+  place-items:center;
+  border-radius: 15px;
+  background: #e9f9ef;
+  color:#166534;
+  font-size:1.45rem;
+  margin-bottom: 14px;
+}
+.pro-feature-card b { display:block; font-size:1rem; margin-bottom:6px; }
+.pro-feature-card span { color:#64748b; font-size:.88rem; line-height:1.5; }
+.pro-flow {
+  margin-top: 24px;
+  position: relative;
+  z-index: 1;
+  display:grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+}
+.pro-flow-step {
+  border-radius: 18px;
+  background: #0f172a;
+  color:#e2e8f0;
+  padding: 17px;
+  min-height: 142px;
+  border: 1px solid rgba(255,255,255,.08);
+}
+.pro-flow-step b { color:#fff; display:block; margin: 8px 0 5px; }
+.pro-flow-step span { color:#aebbd0; font-size:.8rem; line-height:1.45; }
+.pro-flow-step .num {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f7d36c, #b98116);
+  color:#07111f;
+  display:grid;
+  place-items:center;
+  font-weight:900;
+}
+
+#planos.pro-pricing-section { max-width: 1180px; padding-top: 70px; }
+.pro-pricing-shell {
+  background:
+    radial-gradient(circle at 50% -10%, rgba(34,197,94,.18), transparent 30%),
+    linear-gradient(135deg, #07111f, #0b1830);
+  border: 1px solid rgba(148,163,184,.18);
+  border-radius: 32px;
+  padding: 34px;
+  box-shadow: 0 30px 80px rgba(0,0,0,.32);
+  overflow:hidden;
+  position:relative;
+}
+.pro-pricing-head { text-align:center; margin-bottom: 28px; }
+.pro-pricing-head .label {
+  display:inline-flex;
+  padding: 7px 12px;
+  border-radius:999px;
+  border:1px solid rgba(212,162,49,.28);
+  color:#f7d36c;
+  background:rgba(212,162,49,.08);
+  font-family:var(--mono);
+  font-size:.72rem;
+  letter-spacing:1.3px;
+  text-transform:uppercase;
+  font-weight:900;
+}
+.pro-pricing-head h2 { color:#fff; font-size:clamp(1.9rem,4vw,3.2rem); margin:14px 0 7px; letter-spacing:-1px; }
+.pro-pricing-head p { color:#aebbd0; }
+.pro-price-grid { display:grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.pro-price-card {
+  position:relative;
+  background:#fff;
+  color:#0f172a;
+  border-radius: 24px;
+  border:1px solid rgba(15,23,42,.1);
+  padding: 26px;
+  min-height: 430px;
+  display:flex;
+  flex-direction:column;
+  box-shadow: 0 20px 50px rgba(2,6,23,.18);
+}
+.pro-price-card.featured {
+  transform: translateY(-10px);
+  border: 2px solid #22c55e;
+  box-shadow: 0 28px 70px rgba(34,197,94,.22);
+}
+.pro-price-badge {
+  position:absolute;
+  top:-14px;
+  left:50%;
+  transform:translateX(-50%);
+  padding:7px 16px;
+  border-radius:999px;
+  background:linear-gradient(135deg,#22c55e,#0f8a3d);
+  color:white;
+  font-size:.72rem;
+  font-weight:900;
+  letter-spacing:1px;
+  white-space:nowrap;
+}
+.pro-price-card h3 { font-size:1.3rem; text-align:center; color:#166534; margin: 8px 0 2px; }
+.pro-price-card .desc { text-align:center; color:#64748b; font-size:.86rem; min-height: 38px; }
+.pro-price { text-align:center; margin: 18px 0 20px; }
+.pro-price .cur { font-weight:900; vertical-align:top; }
+.pro-price .amount { font-size:3rem; font-weight:900; letter-spacing:-2px; color:#0f172a; }
+.pro-price .mo { color:#475569; }
+.pro-price-card.featured .amount { color:#166534; }
+.pro-price-list { list-style:none; display:flex; flex-direction:column; gap:12px; margin:0 0 24px; flex:1; }
+.pro-price-list li { display:flex; gap:10px; color:#334155; font-size:.9rem; line-height:1.35; }
+.pro-price-list li::before { content:'✓'; color:#16a34a; font-weight:900; flex:0 0 auto; }
+.pro-price-btn {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height: 46px;
+  border-radius: 14px;
+  text-decoration:none;
+  font-weight:900;
+  color:#166534;
+  border:1px solid #166534;
+  transition: transform .2s, background .2s;
+}
+.pro-price-btn:hover { transform: translateY(-2px); }
+.pro-price-card.featured .pro-price-btn { background:linear-gradient(135deg,#22c55e,#166534); color:#fff; border:none; }
+.pro-pricing-foot {
+  margin-top: 20px;
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+.pro-foot-card {
+  border-radius: 18px;
+  padding: 17px;
+  background: rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.12);
+  color:#e2e8f0;
+  display:flex;
+  gap:12px;
+  align-items:flex-start;
+}
+.pro-foot-card b { display:block; color:#fff; }
+.pro-foot-card span { color:#aebbd0; font-size:.85rem; }
+
+@media (max-width: 980px) {
+  .pro-hero-shell, .pro-chart-panel, .pro-feature-head { grid-template-columns: 1fr; display:grid; }
+  .pro-hero-visual { min-height:auto; }
+  .pro-dashboard { transform:none; }
+  .pro-float-badge, .pro-floating-price { position: static; width:auto; margin-top:14px; }
+  .pro-proof-row, .pro-feature-grid, .pro-price-grid, .pro-pricing-foot { grid-template-columns:1fr; }
+  .pro-flow { grid-template-columns: repeat(2, 1fr); }
+  .pro-price-card.featured { transform:none; }
+}
+@media (max-width: 560px) {
+  #hero.pro-hero { padding-top: 92px; }
+  .pro-hero-title { letter-spacing:-2px; }
+  .pro-proof-row, .pro-dash-grid, .pro-flow { grid-template-columns:1fr; }
+  .pro-section-card, .pro-pricing-shell { padding:22px; border-radius:22px; }
+  .pro-cta { width:100%; }
+}
+
+
+
+/* ── Modo BigTech Futurista Premium ───────────────────────────────────────── */
+.bigtech-mode {
+  background: #030712;
+  color: #edf6ff;
+}
+.bigtech-mode::before {
+  background-image:
+    radial-gradient(circle at 14% 16%, rgba(0, 229, 255, .16), transparent 26%),
+    radial-gradient(circle at 82% 12%, rgba(34, 197, 94, .14), transparent 24%),
+    radial-gradient(circle at 50% 100%, rgba(212, 162, 49, .11), transparent 28%),
+    linear-gradient(135deg, rgba(255,255,255,.035) 1px, transparent 1px),
+    linear-gradient(45deg, rgba(255,255,255,.022) 1px, transparent 1px);
+  background-size: auto, auto, auto, 64px 64px, 64px 64px;
+}
+.bigtech-mode nav {
+  height: 72px;
+  background: rgba(3, 7, 18, .72);
+  border-bottom: 1px solid rgba(125, 211, 252, .18);
+  box-shadow: 0 10px 40px rgba(0,0,0,.34), inset 0 -1px 0 rgba(255,255,255,.04);
+}
+.bigtech-mode .nav-brand {
+  color: #f8fbff;
+  text-shadow: 0 0 22px rgba(56,189,248,.35);
+}
+.bigtech-mode .nav-brand svg {
+  filter: drop-shadow(0 0 12px rgba(34,197,94,.55));
+}
+.bigtech-mode .nav-cta {
+  background: linear-gradient(135deg, #22d3ee, #22c55e 55%, #facc15);
+  color: #03111f !important;
+  box-shadow: 0 12px 34px rgba(34,211,238,.24), 0 0 0 1px rgba(255,255,255,.12) inset;
+}
+.bigtech-mode #hero.pro-hero {
+  min-height: 96vh;
+  background:
+    linear-gradient(115deg, rgba(3,7,18,.96) 0%, rgba(7,20,40,.92) 45%, rgba(3,7,18,.98) 100%),
+    radial-gradient(circle at 13% 28%, rgba(34,211,238,.28), transparent 26%),
+    radial-gradient(circle at 70% 16%, rgba(34,197,94,.22), transparent 25%),
+    radial-gradient(circle at 91% 72%, rgba(250,204,21,.14), transparent 23%);
+}
+.bigtech-mode #hero.pro-hero::before {
+  opacity: .78;
+  background-image:
+    linear-gradient(rgba(125,211,252,.09) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(125,211,252,.09) 1px, transparent 1px),
+    radial-gradient(circle, rgba(34,197,94,.24) 1px, transparent 1.5px);
+  background-size: 72px 72px, 72px 72px, 22px 22px;
+  mask-image: linear-gradient(to bottom, black 0%, black 64%, transparent 100%);
+}
+.bigtech-mode #hero.pro-hero::after {
+  content:'';
+  position:absolute;
+  inset: 0;
+  pointer-events:none;
+  background:
+    linear-gradient(110deg, transparent 0%, rgba(255,255,255,.055) 45%, transparent 52%);
+  transform: translateX(-120%);
+  animation: bigtechSweep 7s ease-in-out infinite;
+}
+@keyframes bigtechSweep {
+  0%, 40% { transform: translateX(-120%); opacity: 0; }
+  55% { opacity: 1; }
+  85%, 100% { transform: translateX(120%); opacity: 0; }
+}
+.bigtech-mode .pro-hero-shell { gap: 56px; }
+.bigtech-mode .pro-kicker {
+  background: rgba(12, 23, 42, .72);
+  border: 1px solid rgba(34,211,238,.34);
+  color: #a7f3d0;
+  box-shadow: 0 0 0 1px rgba(34,197,94,.08) inset, 0 0 34px rgba(34,211,238,.12);
+  backdrop-filter: blur(16px);
+}
+.bigtech-mode .pro-hero-title {
+  font-family: var(--sans);
+  font-weight: 950;
+  letter-spacing: -5px;
+  text-transform: none;
+  text-shadow: 0 28px 80px rgba(0,0,0,.65);
+}
+.bigtech-mode .pro-hero-title .gold {
+  background: linear-gradient(90deg, #fef9c3 0%, #facc15 26%, #22d3ee 68%, #22c55e 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 26px rgba(34,211,238,.14));
+}
+.bigtech-mode .pro-hero-sub {
+  color: #c7d5e8;
+  font-size: 1.2rem;
+}
+.bigtech-mode .pro-cta {
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+}
+.bigtech-mode .pro-cta::before {
+  content:'';
+  position:absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.25), transparent);
+  transform: translateX(-120%);
+  transition: transform .5s;
+}
+.bigtech-mode .pro-cta:hover::before { transform: translateX(120%); }
+.bigtech-mode .pro-cta.primary {
+  color: #030712;
+  background: linear-gradient(135deg, #facc15, #22d3ee 54%, #22c55e);
+  box-shadow: 0 24px 60px rgba(34,211,238,.22), 0 12px 30px rgba(250,204,21,.14);
+}
+.bigtech-mode .pro-cta.green {
+  background: linear-gradient(135deg, #14b8a6, #22c55e);
+  box-shadow: 0 24px 54px rgba(20,184,166,.22);
+}
+.bigtech-mode .pro-cta.ghost {
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(125,211,252,.2);
+}
+.bigtech-mode .pro-proof {
+  background: linear-gradient(145deg, rgba(15,23,42,.74), rgba(15,23,42,.38));
+  border: 1px solid rgba(125,211,252,.18);
+  box-shadow: 0 18px 45px rgba(0,0,0,.2);
+  backdrop-filter: blur(18px);
+}
+.bigtech-mode .pro-proof b { color: #eaffff; }
+.bigtech-mode .pro-proof span { color: #9fb5cc; }
+.bigtech-mode .pro-law-card {
+  border: 1px solid rgba(250,204,21,.32);
+  background: linear-gradient(135deg, rgba(250,204,21,.12), rgba(34,211,238,.08), rgba(34,197,94,.06));
+  box-shadow: 0 14px 42px rgba(250,204,21,.10);
+}
+.bigtech-status-strip {
+  margin-top: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.bigtech-status-strip span {
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(125,211,252,.22);
+  color: #bae6fd;
+  background: rgba(2, 6, 23, .52);
+  font-family: var(--mono);
+  font-size: .72rem;
+  letter-spacing: .4px;
+  box-shadow: 0 0 20px rgba(34,211,238,.08) inset;
+}
+.bigtech-mode .pro-dashboard {
+  border-radius: 32px;
+  background:
+    linear-gradient(145deg, rgba(15,23,42,.92), rgba(2,6,23,.98)),
+    radial-gradient(circle at 20% 0%, rgba(34,211,238,.2), transparent 30%);
+  border: 1px solid rgba(125,211,252,.24);
+  box-shadow:
+    0 45px 110px rgba(0,0,0,.58),
+    0 0 60px rgba(34,211,238,.12),
+    inset 0 0 0 1px rgba(255,255,255,.05);
+}
+.bigtech-mode .pro-dashboard::before {
+  content:'';
+  position:absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(34,211,238,.55), transparent 32%, rgba(34,197,94,.35) 62%, rgba(250,204,21,.32));
+  z-index:-1;
+  filter: blur(16px);
+  opacity:.42;
+}
+.bigtech-mode .pro-dashboard::after {
+  background: linear-gradient(90deg, #0f172a, #94a3b8, #22d3ee, #0f172a);
+  box-shadow: 0 18px 35px rgba(0,0,0,.35);
+}
+.bigtech-mode .pro-dash-top {
+  color: #dffbff;
+  text-shadow: 0 0 18px rgba(34,211,238,.2);
+}
+.bigtech-mode .pro-dash-screen {
+  background: linear-gradient(180deg, #f8fbff, #edf6ff);
+  border: 1px solid rgba(255,255,255,.7);
+}
+.bigtech-mode .pro-metric {
+  box-shadow: 0 15px 35px rgba(15,23,42,.08);
+}
+.bigtech-mode .pro-bars i {
+  background: linear-gradient(180deg, #22d3ee 0%, #22c55e 70%, #bbf7d0 100%);
+  box-shadow: 0 0 14px rgba(34,197,94,.24);
+}
+.bigtech-command-line {
+  margin-top: 13px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  color: #c9fbff;
+  background: rgba(2,6,23,.74);
+  border: 1px solid rgba(125,211,252,.16);
+  font-family: var(--mono);
+  font-size: .72rem;
+}
+.bigtech-command-line .dot {
+  width: 7px; height: 7px; border-radius: 50%; display:inline-block;
+  box-shadow: 0 0 12px currentColor;
+}
+.bigtech-command-line .green { background:#22c55e; color:#22c55e; }
+.bigtech-command-line .blue { background:#22d3ee; color:#22d3ee; }
+.bigtech-command-line .gold { background:#facc15; color:#facc15; }
+.bigtech-mode .pro-float-badge {
+  background: radial-gradient(circle at 30% 30%, #ffffff, #22d3ee 38%, #22c55e 72%, #0f172a);
+  color: #03111f;
+  box-shadow: 0 28px 70px rgba(34,211,238,.26), 0 0 55px rgba(34,197,94,.18);
+}
+.bigtech-mode .pro-floating-price {
+  background: rgba(248,250,252,.92);
+  border: 1px solid rgba(125,211,252,.22);
+  box-shadow: 0 28px 70px rgba(2,6,23,.34);
+  backdrop-filter: blur(14px);
+}
+.bigtech-mode .pro-section-card {
+  color: #eaf6ff;
+  background:
+    linear-gradient(135deg, rgba(15,23,42,.98), rgba(7,17,31,.95) 52%, rgba(3,7,18,.98)),
+    radial-gradient(circle at 92% 18%, rgba(34,211,238,.18), transparent 34%),
+    radial-gradient(circle at 12% 80%, rgba(34,197,94,.14), transparent 36%);
+  border: 1px solid rgba(125,211,252,.19);
+  box-shadow: 0 32px 90px rgba(0,0,0,.34), inset 0 0 0 1px rgba(255,255,255,.04);
+}
+.bigtech-mode .pro-section-card::before {
+  inset: -20% -10% auto auto;
+  height: 420px;
+  width: 420px;
+  background: radial-gradient(circle, rgba(34,211,238,.18), transparent 62%);
+}
+.bigtech-mode .pro-feature-head p { color:#b6c6da; }
+.bigtech-mode .pro-feature-card {
+  background: rgba(255,255,255,.055);
+  border: 1px solid rgba(125,211,252,.16);
+  color: #f8fbff;
+  backdrop-filter: blur(14px);
+}
+.bigtech-mode .pro-feature-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 22px 48px rgba(34,211,238,.12);
+  border-color: rgba(34,211,238,.32);
+}
+.bigtech-mode .pro-feature-card .icon {
+  background: linear-gradient(135deg, rgba(34,211,238,.16), rgba(34,197,94,.12));
+  color: #67e8f9;
+  border: 1px solid rgba(125,211,252,.2);
+}
+.bigtech-mode .pro-feature-card span { color:#abc0d8; }
+.bigtech-mode .pro-flow-step {
+  background: linear-gradient(145deg, rgba(2,6,23,.82), rgba(15,23,42,.92));
+  border-color: rgba(125,211,252,.18);
+  box-shadow: inset 0 0 30px rgba(34,211,238,.04);
+}
+.bigtech-mode .pro-flow-step .num {
+  background: linear-gradient(135deg, #22d3ee, #22c55e);
+  color: #03111f;
+  box-shadow: 0 0 22px rgba(34,211,238,.25);
+}
+.bigtech-mode #planos.pro-pricing-section {
+  background:
+    radial-gradient(circle at 20% 0%, rgba(34,211,238,.12), transparent 30%),
+    radial-gradient(circle at 75% 20%, rgba(34,197,94,.1), transparent 30%);
+}
+.bigtech-mode .pro-pricing-shell {
+  background: linear-gradient(145deg, rgba(2,6,23,.96), rgba(15,23,42,.92));
+  border: 1px solid rgba(125,211,252,.18);
+  box-shadow: 0 32px 90px rgba(0,0,0,.34), inset 0 0 0 1px rgba(255,255,255,.04);
+}
+.bigtech-mode .pro-pricing-head .label {
+  background: rgba(34,211,238,.09);
+  border: 1px solid rgba(34,211,238,.24);
+  color: #67e8f9;
+}
+.bigtech-mode .pro-price-card {
+  background: linear-gradient(180deg, rgba(248,250,252,.98), rgba(238,246,255,.98));
+  border: 1px solid rgba(125,211,252,.25);
+  box-shadow: 0 20px 54px rgba(2,6,23,.18);
+}
+.bigtech-mode .pro-price-card.featured {
+  border-color: rgba(34,211,238,.65);
+  box-shadow: 0 28px 72px rgba(34,211,238,.16), 0 0 0 1px rgba(34,197,94,.12) inset;
+}
+.bigtech-mode .pro-price-badge {
+  background: linear-gradient(135deg, #22d3ee, #22c55e);
+  color: #03111f;
+  box-shadow: 0 14px 34px rgba(34,211,238,.22);
+}
+.bigtech-mode .pro-price-card h3 { color:#0f766e; }
+.bigtech-mode .pro-price-card.featured .amount { color:#0f766e; }
+.bigtech-mode .pro-price-btn {
+  background: rgba(255,255,255,.78);
+  border-color: rgba(15,118,110,.44);
+  color:#0f766e;
+}
+.bigtech-mode .pro-price-card.featured .pro-price-btn {
+  background: linear-gradient(135deg, #22d3ee, #22c55e);
+  color:#03111f;
+  font-weight: 950;
+}
+.bigtech-mode .pro-pricing-foot {
+  background: rgba(255,255,255,.055);
+  border: 1px solid rgba(125,211,252,.16);
+  border-radius: 20px;
+}
+.bigtech-mode .pro-foot-card span:first-child {
+  filter: drop-shadow(0 0 12px rgba(34,211,238,.3));
+}
+@media (max-width: 960px) {
+  .bigtech-mode .pro-hero-title { letter-spacing:-3px; }
+  .bigtech-command-line { flex-wrap:wrap; }
+}
+
+</style>
+<link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
+<link rel="stylesheet" href="assets/css/icons.css">
+</head>
+<body class="bigtech-mode">
+
+<nav>
+  <a href="#" class="nav-brand">
+    <img src="assets/icons/logo.svg" class="brand-icon" alt="TJPI Selos">
+    TJPI SELOS
+  </a>
+  <ul class="nav-links">
+    <li><a href="#apresentacao">Apresentação</a></li>
+    <li><a href="#planos">Planos</a></li>
+    <li><a href="#download">Download</a></li>
+    <li><a href="#install">Instalação</a></li>
+    <li><a href="#tutorial">Tutorial</a></li>
+    <li><a href="#download" class="nav-cta">↓ Baixar agora</a></li>
+  </ul>
+</nav>
+
+
+<div id="hero" class="pro-hero">
+  <div class="pro-hero-shell">
+    <div class="pro-hero-copy">
+      <div class="pro-kicker">v1.2.3 · Plataforma inteligente para conformidade e automação</div>
+      <h1 class="pro-hero-title">Automação de<br><span class="gold">Selos TJPI</span></h1>
+      <p class="pro-hero-sub">
+        Uma camada inteligente para conferir PDFs, cruzar dados com o TJPI/COJUB, cadastrar selos faltantes e manter sua serventia em <strong>controle, regularidade e alta produtividade</strong>.
+      </p>
+      <div class="pro-cta-row">
+        <a class="pro-cta primary" href="#download"><img src="assets/icons/download.svg" class="button-icon" alt=""> Baixar e testar grátis</a>
+        <a class="pro-cta green" href="#planos"><img src="assets/icons/pricing.svg" class="button-icon" alt=""> Ver mensalidades</a>
+        <a class="pro-cta ghost" href="https://wa.me/5586988599426?text=Tenho%20interesse%20na%20automa%C3%A7%C3%A3o%20TJPI%20Selos" target="_blank" rel="noopener"><img src="assets/icons/whatsapp.svg" class="button-icon" alt=""> Falar no WhatsApp</a>
+      </div>
+      <div class="pro-proof-row">
+        <div class="pro-proof"><b>30 dias</b><span>teste grátis</span></div>
+        <div class="pro-proof"><b>3 sistemas</b><span>Notário, Demaria e Arpenet</span></div>
+        <div class="pro-proof"><b>PDF + TJPI</b><span>conferência inteligente</span></div>
+      </div>
+      <div class="pro-law-card">
+        <div class="seal"><img src="assets/icons/compliance.svg" alt="Regularidade"></div>
+        <div>Fique sempre em regularidade com a <b>Resolução TJPI nº 372/2023, art. 21, §2º, c/c art. 25, VI.</b></div>
+      </div>
+      <div class="bigtech-status-strip">
+        <span>● PDF multimodelo</span>
+        <span>● Conferência COJUB</span>
+        <span>● Cadastro orientado</span>
+        <span>● Alertas inteligentes</span>
+      </div>
+    </div>
+
+    <div class="pro-hero-visual">
+      <div class="pro-dashboard">
+        <div class="pro-dash-top"><strong>TJPI SELOS · PAINEL DE CONTROLE</strong><span>online ●</span></div>
+        <div class="pro-dash-screen">
+          <div class="pro-dash-grid">
+            <div class="pro-metric good"><span>Verificados</span><b>1.248</b></div>
+            <div class="pro-metric warn"><span>Pendentes</span><b>23</b></div>
+            <div class="pro-metric bad"><span>Faltantes</span><b>7</b></div>
+            <div class="pro-metric good"><span>Restituídos</span><b>12</b></div>
+          </div>
+          <div class="pro-chart-panel">
+            <div class="pro-chart"><b>Monitor de restituição</b><div class="pro-bars"><i style="height:24%"></i><i style="height:34%"></i><i style="height:46%"></i><i style="height:36%"></i><i style="height:54%"></i><i style="height:70%"></i><i style="height:62%"></i><i style="height:88%"></i></div></div>
+            <div class="pro-feed"><b>Atividades recentes</b><p>Relatório PDF lido com sucesso</p><p>Cadastro enviado ao TJPI/COJUB</p><p>Alerta enviado via Telegram</p><p>Pendência identificada com segurança</p></div>
+          </div>
+        </div>
+        <div class="bigtech-command-line">
+          <span class="dot green"></span><span>PDF lido</span>
+          <span class="dot blue"></span><span>TJPI comparado</span>
+          <span class="dot gold"></span><span>Relatório pronto</span>
+        </div>
+      </div>
+      <div class="pro-float-badge"><div><span>✓</span>Conformidade<br>e regularidade</div></div>
+      <div class="pro-floating-price"><small>Planos a partir de</small><b>R$ 59,90/mês</b><span>por serventia · 30 dias grátis</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<section id="apresentacao" class="pro-section">
+  <div class="section-label reveal">Apresentação</div>
+  <div class="section-title reveal">Um painel moderno para controlar selos, pendências e produtividade</div>
+  <p class="section-sub reveal">Experiência visual mais clara, moderna e profissional, com foco em produtividade, conformidade e tomada de decisão.</p>
+
+  <div class="pro-section-card reveal">
+    <div class="pro-feature-head">
+      <h2>Controle operacional de ponta a ponta</h2>
+      <p>Do PDF ao relatório final: o sistema organiza a rotina de selos, reduz retrabalho, orienta pendências e entrega informações prontas para conferência interna.</p>
+    </div>
+
+    <div class="pro-feature-grid">
+      <div class="pro-feature-card"><div class="icon"><img src="assets/icons/pdf.svg" alt="PDF"></div><b>Leitura PDF multissistemas</b><span>Suporte a relatórios Notário, Demaria/DOC-Windows e Arpenet/E-Ofício.</span></div>
+      <div class="pro-feature-card"><div class="icon"><img src="assets/icons/search.svg" alt="Conferência"></div><b>Conferência inteligente</b><span>Compara os selos do PDF com o TJPI/COJUB e aponta o que ainda falta.</span></div>
+      <div class="pro-feature-card"><div class="icon"><img src="assets/icons/cloud.svg" alt="Cadastro automático"></div><b>Cadastro automático</b><span>Envia os selos faltantes com mais agilidade, sem perder a validação humana.</span></div>
+      <div class="pro-feature-card"><div class="icon"><img src="assets/icons/attachment.svg" alt="Anexos"></div><b>Anexos e campos obrigatórios</b><span>Quando houver pendência, o sistema repesquisa o selo e orienta o preenchimento manual.</span></div>
+      <div class="pro-feature-card"><div class="icon"><img src="assets/icons/telegram.svg" alt="Telegram"></div><b>Alertas Telegram</b><span>Notificações detalhadas sobre faltantes, pendentes e restituição mensal.</span></div>
+      <div class="pro-feature-card"><div class="icon"><img src="assets/icons/excel.svg" alt="Relatórios"></div><b>Relatórios organizados</b><span>Excel com resumo da verificação para auditoria, controle e tomada de decisão.</span></div>
+    </div>
+
+    <div class="pro-flow">
+      <div class="pro-flow-step"><div class="num">1</div><b>Selecione o PDF</b><span>Use o relatório gerado pelo sistema do cartório.</span></div>
+      <div class="pro-flow-step"><div class="num">2</div><b>Confira no TJPI</b><span>O sistema compara PDF x TJPI/COJUB.</span></div>
+      <div class="pro-flow-step"><div class="num">3</div><b>Cadastre faltantes</b><span>Selos não localizados podem ser enviados automaticamente.</span></div>
+      <div class="pro-flow-step"><div class="num">4</div><b>Trate pendências</b><span>Anexos e campos obrigatórios recebem orientação por pop-up.</span></div>
+      <div class="pro-flow-step"><div class="num">5</div><b>Receba alertas</b><span>Relatórios, Telegram e monitor de restituição mensal.</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="planos" class="pro-pricing-section">
+  <div class="pro-pricing-shell reveal">
+    <div class="pro-pricing-head">
+      <div class="label">Mensalidades</div>
+      <h2>Planos simples para uma rotina mais inteligente</h2>
+      <p>Teste grátis por 30 dias. Planos mensais por serventia, com suporte e evolução contínua.</p>
+    </div>
+
+    <div class="pro-price-grid">
+      <div class="pro-price-card">
+        <h3>Plano Inicial</h3>
+        <div class="desc">Ideal para cartórios pequenos</div>
+        <div class="pro-price"><span class="cur">R$</span> <span class="amount">59,90</span> <span class="mo">/mês</span></div>
+        <ul class="pro-price-list">
+          <li>Verificação de selos</li>
+          <li>Leitura de PDF Notário, Demaria e Arpenet/E-Ofício</li>
+          <li>Cadastro automático</li>
+          <li>Alertas via Telegram</li>
+          <li>Relatórios em Excel</li>
+          <li>1 computador</li>
+        </ul>
+        <a class="pro-price-btn" href="https://wa.me/5586988599426?text=Tenho%20interesse%20no%20Plano%20Inicial%20TJPI%20Selos" target="_blank" rel="noopener">Assinar agora</a>
+      </div>
+
+      <div class="pro-price-card featured">
+        <div class="pro-price-badge">MAIS ESCOLHIDO</div>
+        <h3>Plano Padrão</h3>
+        <div class="desc">O mais completo para o dia a dia</div>
+        <div class="pro-price"><span class="cur">R$</span> <span class="amount">89,90</span> <span class="mo">/mês</span></div>
+        <ul class="pro-price-list">
+          <li>Tudo do Plano Inicial</li>
+          <li>Tratamento de anexos e campos obrigatórios</li>
+          <li>Identificação de selos não localizados no TJPI</li>
+          <li>Monitor de restituição mensal</li>
+          <li>Suporte por e-mail e WhatsApp</li>
+          <li>1 computador</li>
+        </ul>
+        <a class="pro-price-btn" href="https://wa.me/5586988599426?text=Tenho%20interesse%20no%20Plano%20Padr%C3%A3o%20TJPI%20Selos" target="_blank" rel="noopener">Assinar agora</a>
+      </div>
+
+      <div class="pro-price-card">
+        <h3>Plano Pro</h3>
+        <div class="desc">Para quem precisa de prioridade</div>
+        <div class="pro-price"><span class="cur">R$</span> <span class="amount">129,90</span> <span class="mo">/mês</span></div>
+        <ul class="pro-price-list">
+          <li>Tudo do Plano Padrão</li>
+          <li>Suporte prioritário</li>
+          <li>Ajuda na configuração</li>
+          <li>Acompanhamento personalizado</li>
+          <li>Melhorias e ajustes personalizados</li>
+          <li>Até 2 computadores</li>
+        </ul>
+        <a class="pro-price-btn" href="https://wa.me/5586988599426?text=Tenho%20interesse%20no%20Plano%20Pro%20TJPI%20Selos" target="_blank" rel="noopener">Assinar agora</a>
+      </div>
+    </div>
+
+    <div class="pro-pricing-foot">
+      <div class="pro-foot-card"><span>🎁</span><div><b>30 dias grátis</b><span>Use sem compromisso e veja os resultados.</span></div></div>
+      <div class="pro-foot-card"><span>🛡️</span><div><b>Segurança e controle</b><span>Rotina mais organizada e menos erros manuais.</span></div></div>
+      <div class="pro-foot-card"><span>💬</span><div><b>Suporte especializado</b><span>Atendimento direto para ajudar sua serventia.</span></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="download">
+  <div class="section-label reveal">Download</div>
+  <div class="section-title reveal">Baixe o Aplicativo</div>
+  <p class="section-sub reveal">Versão para Windows. Instale e comece a usar em menos de 2 minutos. Atualizado para v1.2.3 com leitura de PDFs Notário, Arpenet/E-Ofício e Demaria/DOC-Windows, além de alertas detalhados via Telegram.</p>
+
+  <div class="download-grid reveal">
+    <div class="dl-card featured">
+      <div class="dl-badge">✓ RECOMENDADO</div>
+      <div class="dl-title">TJPI_Selos.exe</div>
+      <p class="dl-desc">Executável principal da versão 1.2.3. O download inicia diretamente ao clicar no botão. Inclui leitura PDF multissistemas e melhorias na automação.</p>
+      <div class="dl-info">
+        <div class="dl-info-item">
+          <span class="k">Versão</span>
+          <span class="v">1.2.3</span>
+        </div>
+        <div class="dl-info-item">
+          <span class="k">Tamanho</span>
+          <span class="v">~260 MB</span>
+        </div>
+        <div class="dl-info-item">
+          <span class="k">Sistema</span>
+          <span class="v">Windows 10+</span>
+        </div>
+      </div>
+      <a href="https://github.com/Lucianoph/tjpi-selos-landing/releases/download/v1.2.3/TJPI_Selos.exe" class="btn-download primary" download>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download Direto (.exe)
+      </a>
+    </div>
+
+    <div class="dl-card">
+      <div class="dl-badge" style="background:rgba(59,130,246,0.1);color:var(--accent)">PORTÁTIL</div>
+      <div class="dl-title">TJPI_Selos.exe</div>
+      <p class="dl-desc">Versão portátil. Não precisa instalar — execute direto. Ideal para pen drive, já com suporte a relatórios Notário, Arpenet/E-Ofício, Demaria/DOC-Windows e alertas via Telegram.</p>
+      <div class="dl-info">
+        <div class="dl-info-item">
+          <span class="k">Versão</span>
+          <span class="v">1.2.3</span>
+        </div>
+        <div class="dl-info-item">
+          <span class="k">Tamanho</span>
+          <span class="v">~260 MB</span>
+        </div>
+        <div class="dl-info-item">
+          <span class="k">Sistema</span>
+          <span class="v">Windows 10+</span>
+        </div>
+      </div>
+      <a href="https://github.com/Lucianoph/tjpi-selos-landing/releases/download/v1.2.3/TJPI_Selos.exe" class="btn-download secondary" download>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download — Portátil (.exe)
+      </a>
+    </div>
+  </div>
+
+  <div class="sys-req reveal">
+    <div class="sys-req-item">
+      <div class="k">Sistema operacional</div>
+      <div class="v">Windows 10 ou superior</div>
+    </div>
+    <div class="sys-req-item">
+      <div class="k">Arquitetura</div>
+      <div class="v">x64 (64-bit)</div>
+    </div>
+    <div class="sys-req-item">
+      <div class="k">Conexão</div>
+      <div class="v">Internet necessária</div>
+    </div>
+    <div class="sys-req-item">
+      <div class="k">Espaço em disco</div>
+      <div class="v">300 MB livres</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="install">
+  <div class="section-label reveal">Instalação</div>
+  <div class="section-title reveal">Como Instalar</div>
+  <p class="section-sub reveal">Siga os passos abaixo para instalar e configurar o aplicativo pela primeira vez.</p>
+
+  <div class="steps">
+
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-content">
+        <div class="step-title">Baixe o executável</div>
+        <div class="step-body">
+          Clique em <strong>Download Direto (.exe)</strong> na seção acima. O arquivo <code style="color:var(--accent2)">TJPI_Selos.exe</code> será salvo na sua pasta de Downloads.
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-content">
+        <div class="step-title">Libere o arquivo no Windows Defender</div>
+        <div class="step-body">
+          O Windows pode exibir um alerta de segurança pois o aplicativo ainda não possui assinatura digital. Para prosseguir:<br><br>
+          <strong>→ Clique em "Mais informações"</strong> na tela azul do SmartScreen<br>
+          <strong>→ Clique em "Executar assim mesmo"</strong>
+        </div>
+        <div class="step-tip">
+          Isso é normal para aplicativos sem certificado digital. O software é seguro.
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-content">
+        <div class="step-title">Execute o aplicativo</div>
+        <div class="step-body">
+          Clique duas vezes no arquivo baixado para abrir o sistema. Se o Windows exibir aviso de segurança, clique em <strong>Mais informações</strong> e depois em <strong>Executar assim mesmo</strong>.<br><br>
+          <strong>Não é necessário ter Python ou qualquer outra dependência instalada.</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">04</div>
+      <div class="step-content">
+        <div class="step-title">Aguarde o servidor conectar</div>
+        <div class="step-body">
+          Na primeira vez que abrir, o aplicativo irá se conectar ao servidor. Se o servidor estiver em modo de espera (Render Free), pode levar <strong>até 1 minuto</strong> para conectar. Uma barra de progresso será exibida.
+        </div>
+        <div class="step-tip">
+          Não feche o aplicativo durante a conexão inicial. O servidor acorda automaticamente.
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">05</div>
+      <div class="step-content">
+        <div class="step-title">Crie sua conta</div>
+        <div class="step-body">
+          Após conectar, vá na aba <strong>"Criar Conta"</strong> e preencha:<br><br>
+          • Nome completo<br>
+          • Login (sem espaços)<br>
+          • Senha (mínimo 4 caracteres)<br><br>
+          Cada computador permite <strong>apenas um cadastro gratuito de 30 dias</strong>. O sistema identifica sua máquina automaticamente.
+        </div>
+        <div class="code-block">
+          <span class="code-text">Cada máquina = 1 conta = 30 dias grátis</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">06</div>
+      <div class="step-content">
+        <div class="step-title">Pronto! Configure e use</div>
+        <div class="step-body">
+          Após o login, o aplicativo principal será aberto. Tem a opção de login manual no site do TJPI e para login automático Configure o Login/cartório e comece a usar. Seu login fica salvo — nas próximas vezes, o aplicativo entra <strong>automaticamente</strong>.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="tutorial">
+  <div class="section-label reveal">Tutorial</div>
+  <div class="section-title reveal">Como Usar o Aplicativo</div>
+  <p class="section-sub reveal">Fluxo atualizado da versão 1.2.3: selecione o PDF do cartório, confira os selos no TJPI/COJUB, gere relatório e use a automação para cadastrar faltantes, inclusive com orientação para pendências de anexo ou campo obrigatório.</p>
+
+  <div class="tabs reveal">
+    <div class="tab active" onclick="mudarTab('visao-geral', this)">Visão Geral</div>
+    <div class="tab" onclick="mudarTab('video', this)"><img src="assets/icons/play.svg" class="tab-icon" alt=""> Vídeo Tutorial</div>
+    <div class="tab" onclick="mudarTab('verificacao', this)">Conferência de Selos</div>
+    <div class="tab" onclick="mudarTab('cadastro', this)">Cadastro Automático</div>
+    <div class="tab" onclick="mudarTab('monitor', this)">Monitor de Restituição</div>
+    <div class="tab" onclick="mudarTab('telegram', this)"><img src="assets/icons/telegram.svg" class="tab-icon" alt=""> Alertas Telegram</div>
+    <div class="tab" onclick="mudarTab('whatsapp', this)"><img src="assets/icons/whatsapp.svg" class="tab-icon" alt=""> Alertas WhatsApp</div>
+    <div class="tab" onclick="mudarTab('faq', this)">Perguntas Frequentes</div>
+  </div>
+
+  <div id="tab-visao-geral" class="tab-content active">
+    <div class="feature-grid">
+      <div class="feature-card">
+        <span class="feature-icon"><img src="assets/icons/pdf.svg" alt="PDF"></span>
+        <div class="feature-title">PDF como base da conferência</div>
+        <div class="feature-desc">A verificação começa pelo relatório em PDF do cartório. O sistema extrai os selos únicos e usa essa lista como referência real da conferência.</div>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon"><img src="assets/icons/document.svg" alt="Relatórios"></span>
+        <div class="feature-title">Relatórios de vários sistemas</div>
+        <div class="feature-desc">A versão 1.2.3 aceita relatórios gerados pelos sistemas Notário, Arpenet/E-Ofício e Demaria/DOC-Windows, incluindo selos quebrados em linhas diferentes no PDF.</div>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon"><img src="assets/icons/search.svg" alt="Comparação"></span>
+        <div class="feature-title">Comparação com TJPI/COJUB</div>
+        <div class="feature-desc">Depois da leitura do PDF, o aplicativo coleta os dados do site e mostra quantos selos do PDF já estão cadastrados e quais ainda faltam.</div>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon"><img src="assets/icons/robot.svg" alt="Automação"></span>
+        <div class="feature-title">Cadastro automático seguro</div>
+        <div class="feature-desc">Quando houver faltantes, o sistema pode tentar cadastrar automaticamente e identifica mensagens do COJUB, como campo obrigatório ou exigência de anexo.</div>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon"><img src="assets/icons/attachment.svg" alt="Pendências"></span>
+        <div class="feature-title">Apoio em pendências manuais</div>
+        <div class="feature-desc">Se o COJUB pedir anexo ou campo obrigatório, a automação repesquisa o selo, orienta o usuário por pop-up e só continua após confirmação ou decisão de pular.</div>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon"><img src="assets/icons/excel.svg" alt="Relatórios"></span>
+        <div class="feature-title">Relatórios e alertas</div>
+        <div class="feature-desc">Ao final, o sistema gera relatório Excel, classifica aprovados/pendentes/faltantes e pode enviar alertas detalhados pelo Telegram, além de WhatsApp/e-mail conforme sua configuração.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Tab: Vídeo Tutorial ──────────────────────────────────────── -->
+  <div id="tab-video" class="tab-content">
+    <div class="video-outer">
+      <p class="video-intro">
+        Assista ao tutorial completo abaixo e veja o <strong style="color:var(--text);">TJPI Selos</strong> em ação. O vídeo apresenta o uso geral do sistema; a versão 1.2.3 adiciona leitura de PDFs Notário, Arpenet/E-Ofício e Demaria/DOC-Windows, além de melhorias no fluxo de cadastro automático e tratamento de pendências do COJUB.
+      </p>
+
+      <div class="video-wrapper">
+        <iframe
+          src="https://www.youtube.com/embed/Iv1d8G3Ljrw"
+          title="Tutorial TJPI Selos — Guia Completo"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen>
+        </iframe>
+      </div>
+
+      <div class="video-note">
+        Caso o vídeo não carregue, verifique sua conexão com a internet ou acesse diretamente pelo YouTube. Ative as legendas (CC) se necessário.
+      </div>
+    </div>
+  </div>
+
+  <div id="tab-verificacao" class="tab-content">
+    <div class="walkthrough">
+      <div class="walk-item">
+        <div class="walk-bullet">1</div>
+        <div>
+          <div class="walk-title">Selecione o PDF do cartório</div>
+          <div class="walk-desc">Na aba <strong>Selos</strong>, clique em <strong>Selecionar PDF</strong> e escolha o relatório de selos utilizados do cartório. A versão 1.2.3 aceita relatórios dos sistemas <strong>Notário</strong>, <strong>Arpenet/E-Ofício</strong> e <strong>Demaria/DOC-Windows</strong>.</div>
+        </div>
+      </div>
+      <div class="walk-item">
+        <div class="walk-bullet">2</div>
+        <div>
+          <div class="walk-title">Confirme a leitura do PDF</div>
+          <div class="walk-desc">Ao iniciar, o log mostra quantos selos únicos foram extraídos. O sistema também trata selos com validador quebrado em duas linhas e evita duplicidades.</div>
+          <div class="code-block">
+            <span class="code-text">PDF: 637 selos únicos extraídos</span>
+          </div>
+        </div>
+      </div>
+      <div class="walk-item">
+        <div class="walk-bullet">3</div>
+        <div>
+          <div class="walk-title">Escolha as opções de execução</div>
+          <div class="walk-desc">Mantenha marcada a opção <strong>Executar em segundo plano</strong> para rodar sem abrir o navegador. Marque também <strong>Gerar relatório Excel</strong> para salvar o resultado da conferência.</div>
+        </div>
+      </div>
+      <div class="walk-item">
+        <div class="walk-bullet">4</div>
+        <div>
+          <div class="walk-title">Clique em “Verificar Selos”</div>
+          <div class="walk-desc">O sistema lê o PDF, coleta os dados do TJPI/COJUB e compara os dois lados. Se o login manual for necessário, faça login no navegador aberto e clique em <strong>Login OK</strong> na janela do sistema.</div>
+        </div>
+      </div>
+      <div class="walk-item">
+        <div class="walk-bullet">5</div>
+        <div>
+          <div class="walk-title">Entenda o aviso de zero encontrados</div>
+          <div class="walk-desc">Se nenhum selo do PDF ainda estiver no TJPI, o sistema mostra <strong>“Selos do PDF ainda não localizados no TJPI”</strong>. Isso não significa falha: pode indicar que todos os selos do relatório ainda precisam ser cadastrados.</div>
+          <div class="code-block">
+            <span class="code-text">TJPI: 0/637 selos do PDF cadastrados · Faltantes PDF: 637</span>
+          </div>
+        </div>
+      </div>
+      <div class="walk-item">
+        <div class="walk-bullet">6</div>
+        <div>
+          <div class="walk-title">Acompanhe o resultado no log</div>
+          <div class="walk-desc">O log mostra a contagem principal: <strong>PDF total</strong>, <strong>TJPI cadastrado</strong>, <strong>Faltantes PDF</strong>, <strong>Pendentes</strong>, <strong>Restituídos/Aprovados</strong> e o caminho do Excel gerado.</div>
+          <div class="code-block">
+            <span class="code-text">PDF total: 761 · TJPI cadastrado: 756 · Faltantes PDF: 5</span>
+          </div>
+        </div>
+      </div>
+      <div class="walk-item">
+        <div class="walk-bullet">7</div>
+        <div>
+          <div class="walk-title">Revise os selos faltantes</div>
+          <div class="walk-desc">Se houver faltantes, o sistema lista cada selo com número, validador e dados extraídos do PDF. Em seguida, você pode confirmar ou adiar o cadastro automático.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="tab-cadastro" class="tab-content">
+    <div class="walkthrough">
+      <div class="walk-item">
+        <div class="walk-bullet">1</div>
+        <div>
+          <div class="walk-title">Confirme o cadastro dos faltantes</div>
+          <div class="walk-desc">Após a conferência, se o sistema encontrar selos do PDF que ainda não estão no TJPI/COJUB, será exibida uma confirmação para iniciar o cadastro automático.</div>
+        </div>
+      </div>
+      <div class="walk-item">
+        <div class="walk-bullet">2</div>
+        <div>
+          <div class="walk-title">Ative o tratamento de anexos e campos obrigatórios</div>
+          <div class="walk-desc">Na aba <strong>Selos</strong>, marque <strong>Tratar Anexos e Campos Obrigatórios</strong> quando quiser que a automação pare nos selos que exigirem intervenção manual.</div>
+          <div class="step-tip">Use essa opção quando houver chance de o COJUB exigir documento, ordem judicial, comprovação ou preenchimento manual de algum campo.</div>
+        </div>
+      </div>
+      <div class="walk-item">
+        <div class="walk-bullet">3</div>
+        <div>
+          <div class="walk-title">Faça login quando solicitado</div>
+          <div class="walk-desc">Para cadastrar, o sistema abre o navegador com sessão autenticada. Faça login no TJPI/COJUB, quando necessário, e confirme em <strong>Login OK</strong>.</div>
+        </div>
+      </div>
+      <div class="walk-item">
+        <div class="walk-bullet">4</div>
+        <div>
+          <div class="walk-title">Acompanhe cada tentativa</div>
+          <div class="walk-desc">Cada selo será processado individualmente. O log mostra se o cadastro foi concluído, se exige anexo, se há campo obrigatório ou se o site retornou outra mensagem.</div>
+          <div class="code-block">
+            <span class="code-text">[OK] cadastrado · [ANEXO] exige comprovação · [CAMPO] campo obrigatório · [ERRO] erro do site</span>
+          </div>
+        </div>
+      </div>
+      <div class="walk-item">
+        <div class="walk-bullet">5</div>
+        <div>
+          <div class="walk-title">Quando houver anexo ou campo obrigatório</div>
+          <div class="walk-desc">O robô repesquisa o mesmo selo que deu erro e abre um pop-up com orientações. Minimize o pop-up, preencha os campos obrigatórios no site, anexe os documentos necessários e depois volte ao pop-up para confirmar.</div>
+        </div>
+      </div>
+      <div class="walk-item">
+        <div class="walk-bullet">6</div>
+        <div>
+          <div class="walk-title">Confirme para salvar e continuar</div>
+          <div class="walk-desc">Quando terminar a correção no site, clique em <strong>Sim, salvar e continuar</strong>. A automação valida o retorno do COJUB e avança para o próximo selo da fila.</div>
+          <div class="code-block" style="display:block;white-space:pre-line;color:var(--muted2);">
+<span class="code-text">Pop-up: Os campos obrigatórios ou anexos foram preenchidos?
+→ Minimize esta janela
+→ Complete o cadastro no site
+→ Volte aqui e confirme para continuar</span>
+          </div>
+        </div>
+      </div>
+      <div class="walk-item">
+        <div class="walk-bullet">7</div>
+        <div>
+          <div class="walk-title">Pule somente quando não for possível resolver</div>
+          <div class="walk-desc">Se não tiver o documento ou não conseguir preencher o campo naquele momento, clique em <strong>Pular este selo</strong>. O sistema registra a falha no log e segue para o próximo, sem marcar falso “cadastrado”.</div>
+          <div class="step-tip">O sistema só considera o selo cadastrado quando o COJUB indicar sucesso ou que o selo já está cadastrado.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="tab-monitor" class="tab-content">
+    <div class="walkthrough">
+      <div class="walk-item">
+        <div class="walk-bullet">1</div>
+        <div>
+          <div class="walk-title">Acesse o Monitor de Restituição</div>
+          <div class="walk-desc">Na aba <strong>Monitor de Restituição</strong>, escolha o mês e o ano que você está aguardando.</div>
+        </div>
+      </div>
+      <div class="walk-item">
+        <div class="walk-bullet">2</div>
+        <div>
+          <div class="walk-title">Inicie o monitoramento</div>
+          <div class="walk-desc">Clique em <strong>Iniciar Monitor</strong>. O sistema verificará periodicamente a página de restituição do TJPI e indicará o período atualmente disponível no site.</div>
+        </div>
+      </div>
+      <div class="walk-item">
+        <div class="walk-bullet">3</div>
+        <div>
+          <div class="walk-title">Use “Verificar Agora” quando quiser</div>
+          <div class="walk-desc">Para uma consulta imediata, clique em <strong>Verificar Agora</strong>. O resultado aparece na tela com período, valor unitário, total de atos, valor total e dados bancários quando disponíveis.</div>
+        </div>
+      </div>
+      <div class="walk-item">
+        <div class="walk-bullet">4</div>
+        <div>
+          <div class="walk-title">Receba alerta quando cair</div>
+          <div class="walk-desc">Quando o período aguardado for encontrado, o sistema exibe o resultado, envia alerta via Telegram, WhatsApp ou e-mail conforme sua configuração e para o monitor automaticamente para evitar notificações repetidas.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div id="tab-telegram" class="tab-content">
+    <div class="walkthrough">
+
+      <div style="background:linear-gradient(135deg,rgba(59,130,246,0.14),rgba(16,185,129,0.06));border:1px solid rgba(59,130,246,0.32);border-radius:10px;padding:18px 22px;display:flex;align-items:flex-start;gap:14px;margin-bottom:8px;">
+        <span class="panel-icon"><img src="assets/icons/telegram.svg" alt="Telegram"></span>
+        <div>
+          <div style="font-family:var(--mono);font-size:0.9rem;font-weight:700;color:var(--accent);margin-bottom:4px;">Telegram — Alertas detalhados e automáticos</div>
+          <div style="font-size:0.85rem;color:var(--muted2);line-height:1.6;">
+            Na versão <strong style="color:var(--text);">1.2.3</strong>, o TJPI Selos mantém alertas pelo Telegram com resumo do status, detalhamento por lote e identificação dos selos faltantes. O token do bot fica protegido no servidor; o usuário configura apenas o próprio Chat ID.
+          </div>
+        </div>
+      </div>
+
+      <div class="walk-item">
+        <div class="walk-bullet">1</div>
+        <div>
+          <div class="walk-title">Ative os alertas Telegram no aplicativo</div>
+          <div class="walk-desc">
+            Abra <strong>Config TJPI → Alertas Telegram</strong> e marque a opção para ativar. O sistema não pede token do bot ao usuário, pois o envio é feito pelo servidor seguro.
+          </div>
+        </div>
+      </div>
+
+      <div class="walk-item">
+        <div class="walk-bullet">2</div>
+        <div>
+          <div class="walk-title">Abra o bot e gere o vínculo</div>
+          <div class="walk-desc">
+            Clique em <strong>Abrir bot e gerar código</strong>. O sistema abrirá um link exclusivo, parecido com:
+          </div>
+          <div class="code-block">
+            <span class="code-text">https://t.me/tjpiselosbot?start=CODIGO_UNICO</span>
+          </div>
+          <div class="step-tip">
+            Cada usuário recebe um código diferente. Esse código serve apenas para vincular o Telegram correto ao aplicativo daquele usuário.
+          </div>
+        </div>
+      </div>
+
+      <div class="walk-item">
+        <div class="walk-bullet">3</div>
+        <div>
+          <div class="walk-title">Clique em “Iniciar” no Telegram</div>
+          <div class="walk-desc">
+            Ao iniciar o bot, o servidor identifica automaticamente o Chat ID do usuário e envia uma mensagem de confirmação no próprio Telegram.
+          </div>
+        </div>
+      </div>
+
+      <div class="walk-item">
+        <div class="walk-bullet">4</div>
+        <div>
+          <div class="walk-title">Detecte o Chat ID no TJPI Selos</div>
+          <div class="walk-desc">
+            Volte ao aplicativo e clique em <strong>Detectar meu Chat ID</strong>. O campo será preenchido automaticamente. Depois clique em <strong>Salvar Configurações</strong>.
+          </div>
+        </div>
+      </div>
+
+      <div class="walk-item">
+        <div class="walk-bullet">5</div>
+        <div>
+          <div class="walk-title">Receba alertas mais detalhados</div>
+          <div class="walk-desc">
+            Quando houver faltantes, pendentes ou restituição disponível, o sistema enviará uma mensagem explicada, com resumo do status e detalhamento por lote.
+          </div>
+          <div class="code-block" style="display:block;white-space:pre-line;color:var(--muted2);">
+<span class="code-text">🔔 TJPI — Verificação de Selos
+
+📊 Resumo do Status
+Total Analisado: 409
+✅ Aprovados: 399
+⏳ Pendentes: 7
+⚠️ Faltantes: 1
+
+🔍 Detalhamento por Lote
+AJO (26083 → 26128): ✅ OK
+AJT (9507 → 9870): ⚠️ 1 Faltante
+
+🚨 Identificação do Selo Faltante:
+• O selo de número 9798 (Lote AJT) não foi localizado.</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.25);border-radius:8px;padding:12px 16px;margin-top:12px;font-size:0.83rem;color:var(--accent2);display:flex;align-items:flex-start;gap:10px;">
+        <span style="flex-shrink:0;">✅</span>
+        <span>O mesmo bot atende vários usuários. Cada instalação salva apenas o Chat ID configurado nela, então cada usuário recebe os próprios alertas da sua automação.</span>
+      </div>
+
+    </div>
+  </div>
+
+
+  <div id="tab-whatsapp" class="tab-content">
+    <div class="walkthrough">
+
+      <!-- Banner intro -->
+      <div style="background:linear-gradient(135deg,rgba(37,211,102,0.12),rgba(37,211,102,0.04));border:1px solid rgba(37,211,102,0.3);border-radius:10px;padding:18px 22px;display:flex;align-items:flex-start;gap:14px;margin-bottom:8px;">
+        <span class="panel-icon"><img src="assets/icons/whatsapp.svg" alt="WhatsApp"></span>
+        <div>
+          <div style="font-family:var(--mono);font-size:0.9rem;font-weight:700;color:#25d366;margin-bottom:4px;">CallMeBot — Alertas no WhatsApp em Tempo Real</div>
+          <div style="font-size:0.85rem;color:var(--muted2);line-height:1.6;">
+            O sistema usa o serviço <strong style="color:var(--text);">CallMeBot</strong> para enviar alertas direto no seu WhatsApp sobre conferência de selos e restituição mensal.
+          </div>
+        </div>
+      </div>
+
+      <!-- Passo 1 -->
+      <div class="walk-item">
+        <div class="walk-bullet" style="background:rgba(37,211,102,0.15);color:#25d366;border:1px solid rgba(37,211,102,0.3);">1</div>
+        <div>
+          <div class="walk-title">Adicione o número do CallMeBot nos seus contatos</div>
+          <div class="walk-desc">
+            Salve o número abaixo na sua agenda com o nome <strong>CallMeBot</strong>. Isso é necessário para o WhatsApp permitir a conversa.
+          </div>
+          <div class="code-block" style="margin-top:10px;">
+            <span class="code-text" style="color:#25d366;">+34 684 73 40 44</span>
+            <button class="copy-btn" onclick="navigator.clipboard.writeText('+34684734044')">Copiar</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Passo 2 -->
+      <div class="walk-item">
+        <div class="walk-bullet" style="background:rgba(37,211,102,0.15);color:#25d366;border:1px solid rgba(37,211,102,0.3);">2</div>
+        <div>
+          <div class="walk-title">Envie a mensagem de ativação</div>
+          <div class="walk-desc">
+            No WhatsApp, envie exatamente esta mensagem para o contato CallMeBot:
+          </div>
+          <div class="code-block" style="margin-top:10px;">
+            <span class="code-text" style="color:#25d366;">I allow callmebot to send me messages</span>
+            <button class="copy-btn" onclick="navigator.clipboard.writeText('I allow callmebot to send me messages')">Copiar</button>
+          </div>
+          <div class="step-tip" style="margin-top:12px;">
+            O bot pode demorar alguns minutos para responder. Se não responder em 5 minutos, envie a mensagem novamente.
+          </div>
+        </div>
+      </div>
+
+      <!-- Passo 3 -->
+      <div class="walk-item">
+        <div class="walk-bullet" style="background:rgba(37,211,102,0.15);color:#25d366;border:1px solid rgba(37,211,102,0.3);">3</div>
+        <div>
+          <div class="walk-title">Copie o APIKEY recebido</div>
+          <div class="walk-desc">
+            O CallMeBot responderá com uma mensagem contendo o seu <strong>APIKEY</strong>. Copie apenas os números.
+          </div>
+          <div class="code-block" style="margin-top:10px;">
+            <span class="code-text" style="color:var(--warn);font-family:var(--mono);">123456</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Passo 4 -->
+      <div class="walk-item">
+        <div class="walk-bullet" style="background:rgba(37,211,102,0.15);color:#25d366;border:1px solid rgba(37,211,102,0.3);">4</div>
+        <div>
+          <div class="walk-title">Configure no TJPI Selos</div>
+          <div class="walk-desc">
+            No aplicativo, abra <strong>Config TJPI → Alertas WhatsApp</strong>, ative os alertas e preencha a URL da API, o token/APIKEY e o número de destino com DDI e DDD.
+          </div>
+          <div class="code-block" style="margin-top:10px;">
+            <span class="code-text">Número exemplo: 5586999990000</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Passo 5 -->
+      <div class="walk-item">
+        <div class="walk-bullet" style="background:rgba(37,211,102,0.15);color:#25d366;border:1px solid rgba(37,211,102,0.3);">5</div>
+        <div>
+          <div class="walk-title">Salve e teste</div>
+          <div class="walk-desc">
+            Salve as configurações e faça uma verificação. Quando houver faltantes, pendentes ou restituição disponível, o sistema enviará o alerta conforme configurado.
+          </div>
+          <div style="background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.25);border-radius:8px;padding:12px 16px;margin-top:12px;font-size:0.83rem;color:var(--accent2);display:flex;align-items:flex-start;gap:10px;">
+            <span style="flex-shrink:0;">✅</span>
+            <span>Se você receber a mensagem no WhatsApp, a integração está ativa.</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div id="tab-faq" class="tab-content">
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          O Windows bloqueou o arquivo, o que faço?
+          <span class="arrow">▼</span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            Isso ocorre porque o aplicativo não possui assinatura digital. Na tela azul de alerta, clique em <strong>Mais informações</strong> e depois em <strong>Executar assim mesmo</strong>.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Preciso selecionar o PDF em toda verificação?
+          <span class="arrow">▼</span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            Sim. Na versão 1.2.3, o PDF do cartório é a base da conferência. Isso evita contagens incorretas e permite saber exatamente quais selos do relatório ainda faltam no TJPI/COJUB.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          O que significa “exige anexo”?
+          <span class="arrow">▼</span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            Significa que o COJUB retornou mensagem exigindo documento, comprovação ou ordem judicial. Se o tratamento manual estiver ativo, o sistema repesquisa o selo e abre o pop-up para você anexar o documento no site antes de continuar.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          O que significa “campo obrigatório”?
+          <span class="arrow">▼</span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            Significa que o COJUB exibiu uma mensagem pedindo algum campo obrigatório, como beneficiário ou causa de isenção. Se o tratamento manual estiver ativo, o sistema repesquisa o selo e abre o pop-up para você preencher o campo no site antes de continuar.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Quais relatórios PDF são aceitos?
+          <span class="arrow">▼</span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            A versão 1.2.3 aceita relatórios dos sistemas <strong>Notário</strong>, <strong>Arpenet/E-Ofício</strong> e <strong>Demaria/DOC-Windows</strong>. O sistema identifica os selos, validadores e evita duplicidades sempre que o layout for compatível com esses modelos.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Apareceu “Selos do PDF ainda não localizados no TJPI”. É erro?
+          <span class="arrow">▼</span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            Não. Esse aviso significa que o PDF foi lido, mas nenhum dos selos do relatório foi encontrado no TJPI/COJUB. Pode acontecer quando os selos realmente ainda não foram cadastrados. Nesse caso, revise a data/período e, se estiver correto, use o cadastro automático dos faltantes.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Como funciona o pop-up de anexo ou campo obrigatório?
+          <span class="arrow">▼</span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            Quando o COJUB exige anexo ou campo obrigatório, a automação repesquisa o selo e abre um pop-up. Minimize o pop-up, preencha os dados ou anexe os documentos no site, volte ao pop-up e confirme para o sistema salvar/validar e seguir para o próximo selo.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Posso instalar em mais de um computador com a mesma conta?
+          <span class="arrow">▼</span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            Não. Cada conta fica vinculada ao hardware do computador onde foi criada. Se você trocar de computador, entre em contato com o administrador para desvincular sua conta do hardware anterior.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Preciso informar token do Telegram no aplicativo?
+          <span class="arrow">▼</span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            Não. Na versão 1.2.3, o token do bot fica protegido no servidor. No aplicativo, o usuário apenas ativa o Telegram, abre o bot pelo botão do sistema, detecta o próprio Chat ID e salva as configurações.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Como atualizar para uma nova versão?
+          <span class="arrow">▼</span>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            Baixe o novo arquivo nesta página e execute normalmente. A atualização sobrescreve a versão anterior mantendo suas configurações.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<footer>
+  <span class="footer-brand"><img src="assets/icons/compliance.svg" class="inline-icon" alt=""> TJPI SELOS – Desenvolvido por Luciano Silva – Tel: (86)988599426</span>
+  <span class="footer-txt">Sistema de Verificação de Atos Gratuitos · v1.2.3</span>
+  <span class="footer-txt">© 2026 — Todos os direitos reservados</span>
+</footer>
+
+<script>
+// ── Tabs ──────────────────────────────────────────────────────────
+function mudarTab(id, el) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  el.classList.add('active');
+}
+
+// ── FAQ accordion ─────────────────────────────────────────────────
+function toggleFaq(el) {
+  const item = el.closest('.faq-item');
+  const ans  = item.querySelector('.faq-a');
+  const open = item.classList.contains('open');
+
+  document.querySelectorAll('.faq-item.open').forEach(i => {
+    i.classList.remove('open');
+    i.querySelector('.faq-a').style.maxHeight = '0';
+  });
+
+  if (!open) {
+    item.classList.add('open');
+    ans.style.maxHeight = ans.scrollHeight + 'px';
+  }
+}
+
+// ── Copy button ───────────────────────────────────────────────────
+document.querySelectorAll('.copy-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const txt = btn.previousElementSibling.textContent;
+    navigator.clipboard.writeText(txt).then(() => {
+      const orig = btn.textContent;
+      btn.textContent = 'Copiado!';
+      btn.style.color = 'var(--accent2)';
+      btn.style.borderColor = 'var(--accent2)';
+      setTimeout(() => {
+        btn.textContent = orig;
+        btn.style.color = '';
+        btn.style.borderColor = '';
+      }, 2000);
+    });
+  });
+});
+
+// ── Scroll reveal ─────────────────────────────────────────────────
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 80);
+      obs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+// Steps reveal on scroll
+const stepObs = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 120);
+      stepObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('.step').forEach(el => stepObs.observe(el));
+</script>
+</body>
+</html>
